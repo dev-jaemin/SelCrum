@@ -1,7 +1,16 @@
+.Footer{
+	height:60px;
+}
+
 .menu{
 	background-color : orangered;
 }
 
 .menu:hover{
 	background-color : grey;
+}
+
+.hw100percent{
+	height:100%;
+	width:100%;
 }

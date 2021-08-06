@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import IndexPage from './pages/IndexPage';
 import reportWebVitals from './reportWebVitals';
-import Footer from './components/Footer';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <IndexPage />
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,0 +1,10 @@
+.Header{
+	background-color: rgb(255, 69, 0);
+	color: rgb(255, 255, 255);
+	font-size: 30px;
+	font-family: Impact;
+	line-height: 2em;
+	text-align: center;
+	font-style: italic;
+	font-weight: bold;
+}
