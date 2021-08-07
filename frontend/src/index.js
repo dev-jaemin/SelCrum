@@ -3,10 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import IndexPage from './pages/IndexPage';
 import reportWebVitals from './reportWebVitals';
+import { BrowserRouter } from 'react-router-dom';
 
 ReactDOM.render(
   <React.StrictMode>
-    <IndexPage />
+		<BrowserRouter>
+			<IndexPage />
+		</BrowserRouter>
   </React.StrictMode>,
   document.getElementById('root')
 );
