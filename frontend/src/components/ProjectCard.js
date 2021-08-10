@@ -2,17 +2,15 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Card, CardColumns} from "react-bootstrap";
 import './ProjectCard.css';
 
-function ProjectCard() {
+function ProjectCard(props) {
   return (
 
 		<Card>
     		<Card.Body>
-      			<Card.Title>SelCrum FE 작업</Card.Title>
+      			<Card.Title>{props.name}</Card.Title>
+      			<Card.Text><small>{props.info}</small></Card.Text>
       			<Card.Text>
-        		블라블라블라
-      			</Card.Text>
-      			<Card.Text>
-        			<small className="text-muted">Last updated 3 mins ago</small>
+        			<small className="text-muted">{props.start_date} ~ {props.end_date}</small>
       			</Card.Text>
     		</Card.Body>
   		</Card>

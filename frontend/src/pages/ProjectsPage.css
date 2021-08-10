@@ -1,4 +1,5 @@
 .ProjectsPage{
 	height:480px;
 	padding : 10px;
+	overflow: auto;
 }
