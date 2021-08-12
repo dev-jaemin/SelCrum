@@ -1,5 +1,23 @@
 .ProjectsPage{
-	height:480px;
+	height:490px;
 	padding : 10px;
 	overflow: auto;
+}
+
+/* 스크롤바 설정*/
+.ProjectsPage::-webkit-scrollbar{
+    width: 6px;
+}
+
+/* 스크롤바 막대 설정*/
+.ProjectsPage::-webkit-scrollbar-thumb{
+    height: 17%;
+    background-color: lightgrey;
+    /* 스크롤바 둥글게 설정    */
+    border-radius: 10px;    
+}
+
+/* 스크롤바 뒷 배경 설정*/
+.ProjectsPage::-webkit-scrollbar-track{
+    background-color: rgba(0,0,0,0);
 }
