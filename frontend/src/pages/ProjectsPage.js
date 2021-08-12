@@ -16,6 +16,7 @@ function ProjectsPage() {
   return (
     <div className="ProjectsPage">
     	{projectElements}
+		<button className="addProjectBtn"> + </button>
     </div>
   );
 }
