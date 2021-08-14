@@ -1,4 +1,9 @@
-h4{
-	color: orangered;
-	font-weight : bolder;
+.ProjectAddPage{
+	height: 490px;
+}
+
+
+
+.addGoalBtn{
+	float: right;
 }
