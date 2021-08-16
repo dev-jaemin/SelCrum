@@ -53,12 +53,12 @@ function ProjectAddPage() {
     <div className="ProjectAddPage">
 		<Form onSubmit={submitHandler}>
   			<Form.Group className="mb-3" controlId="formBasicEmail">
-    			<Form.Label size="lg">Project Name</Form.Label>
+    			<Form.Label size="lg">프로젝트 이름</Form.Label>
     			<Form.Control type="text" placeholder="Enter project name" value={name} onChange={nameHandler}/>
   			</Form.Group>
 
   			<Form.Group className="mb-3" controlId="formBasicGoal">
-    			<Form.Label>Goal</Form.Label>
+    			<Form.Label>목표</Form.Label>
 				<Form.Control as="textarea" rows={3} value={goal} onChange={goalHandler}/>
 				{/*<Form.Text className="text-muted">
       				목표 한 가지를 적으시고 등록 버튼을 눌러주세요!
@@ -67,11 +67,11 @@ function ProjectAddPage() {
   			</Form.Group>
   
 			<Form.Group className="mb-3" controlId="formBasicDeadline">
-    			<Form.Label>Deadline</Form.Label>
+    			<Form.Label>기한</Form.Label>
     			<Form.Control type="date" value={deadline} onChange={deadlineHandler}/>
   			</Form.Group>
 			  
-  			<Button variant="primary" type="submit">
+  			<Button className="addProjectBtn" variant="primary" type="submit">
     			프로젝트 추가
   			</Button>
 		</Form>
