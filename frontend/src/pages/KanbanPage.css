@@ -1,0 +1,11 @@
+.KanbanPage{
+	height: 490px;
+	overflow: auto;
+	padding: 5px;
+}
+
+h4{
+	clear: both;
+	color: orangered;
+	font-weight: 800;
+}
