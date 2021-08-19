@@ -2,8 +2,13 @@
 	height: 490px;
 }
 
-
-
-.addGoalBtn{
-	float: right;
+.postBtn{
+	position: absolute;
+	color : white;
+	background-color: rgb(0,186,255);
+	z-index : 3;
+	top: 420px;
+	left : 120px;
+	width: 120px;
+	font-weight: bolder;
 }

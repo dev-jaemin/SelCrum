@@ -14,7 +14,7 @@ function IndexPage() {
 		<Route path='/' component={ProjectsPage} exact/>
 		<Route path='/projects' component={ProjectsPage} exact/>
 		<Route path='/addProject' component={ProjectAddPage} exact/>
-		  <Route path='/kanban' component={KanbanPage} exact/>
+		  <Route path='/kanban/:projectId' component={KanbanPage} exact/>
 		<Footer/>
     </div>
   );

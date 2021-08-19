@@ -71,7 +71,7 @@ function ProjectAddPage() {
     			<Form.Control type="date" value={deadline} onChange={deadlineHandler}/>
   			</Form.Group>
 			  
-  			<Button className="addProjectBtn" variant="primary" type="submit">
+  			<Button className="postBtn" variant="primary" type="submit">
     			프로젝트 추가
   			</Button>
 		</Form>
