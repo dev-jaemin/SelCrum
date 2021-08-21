@@ -28,3 +28,21 @@ h4{
 .KanbanPage::-webkit-scrollbar-track{
     background-color: rgba(0,0,0,0);
 }
+
+.SprintPageNav{
+	clear: both;
+	background-color: white;
+}
+
+.nav-link{
+	color: orangered;
+	font-weight: 700;
+	width: 172px;
+}
+
+
+
+.nav-link.active{
+	background-color: orangered!important;
+}
+
