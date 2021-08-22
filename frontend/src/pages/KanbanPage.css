@@ -30,14 +30,15 @@ h4{
 }
 
 .SprintPageNav{
-	clear: both;
+	clear: left;
 	background-color: white;
 }
 
 .nav-link{
 	color: orangered;
 	font-weight: 700;
-	width: 172px;
+	width: 170px;
+	text-align: center;
 }
 
 
