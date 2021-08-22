@@ -11,13 +11,13 @@ import { Route } from 'react-router-dom';
 function IndexPage() {
   return (
     <div className="IndexPage">
-    	<Header />
+    	<Route path='/' component={Header} />
 		<Route path='/' component={ProjectsPage} exact/>
 		<Route path='/projects' component={ProjectsPage} exact/>
 		<Route path='/addProject' component={ProjectAddPage} exact/>
 		<Route path='/kanban/:projectId' component={KanbanPage} exact/>
 		<Route path='/sprint/:projectId' component={ProjectInfoPage} exact/>
-		<Footer/>
+		<Route path='/' component={Footer} />
     </div>
   );
 }

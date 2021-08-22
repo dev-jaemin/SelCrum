@@ -1,10 +1,12 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Card, CardColumns} from "react-bootstrap";
+import { Route, Link } from 'react-router-dom';
 import './ProjectCard.css';
 
 function ProjectCard(props) {
+	let url = "/kanban/"+props.id;
   return (
-
+		
 		<Card>
     		<Card.Body>
       			<Card.Title>{props.name}</Card.Title>
@@ -14,7 +16,7 @@ function ProjectCard(props) {
       			</Card.Text>
     		</Card.Body>
   		</Card>
-	
+	 
 	  
   );
 }
