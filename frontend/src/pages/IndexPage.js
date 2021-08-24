@@ -7,6 +7,7 @@ import ProjectAddPage from './ProjectAddPage';
 import KanbanPage from './KanbanPage';
 import ProjectInfoPage from './ProjectInfoPage';
 import SprintAddPage from './SprintAddPage';
+import LoginPage from './LoginPage';
 import { Route } from 'react-router-dom';
 
 function IndexPage() {
@@ -14,11 +15,12 @@ function IndexPage() {
     <div className="IndexPage">
     	<Route path='/' component={Header} />
 		<Route path='/' component={ProjectsPage} exact/>
-		<Route path='/projects' component={ProjectsPage} exact/>
-		<Route path='/addProject' component={ProjectAddPage} exact/>
-		<Route path='/kanban/:projectId' component={KanbanPage} exact/>
-		<Route path='/sprint/:projectId' component={ProjectInfoPage} exact/>
-		<Route path='/newsprint' component={SprintAddPage} exact/>
+		<Route path='/login' component={LoginPage} exact/>
+		<Route path='/project' component={ProjectsPage} exact/>
+		<Route path='/project/postpage' component={ProjectAddPage} exact/>
+		<Route path='/project/kanban/:projectId' component={KanbanPage} exact/>
+		<Route path='/project/sprint/:projectId' component={ProjectInfoPage} exact/>
+		<Route path='/sprint/:sprintId' component={SprintAddPage} exact/>
 		<Route path='/' component={Footer} />
     </div>
   );

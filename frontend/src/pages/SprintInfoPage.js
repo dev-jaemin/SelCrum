@@ -1,4 +1,4 @@
-import './SprintAddPage.css';
+import './SprintInfoPage.css';
 
 import React, {useState} from 'react';
 import axios from 'axios';
@@ -9,7 +9,7 @@ import {Form, Button} from "react-bootstrap";
 //https://darrengwon.tistory.com/337
  
 
-function SprintAddPage({match}, props) {
+function SprintInfoPage({match}, props) {
 	const [name, setName] = useState('');
 	const [tasks, setTasks] = useState([]);
 	
@@ -42,7 +42,7 @@ function SprintAddPage({match}, props) {
   };
 	
   return (
-    <div className="SprintAddPage">
+    <div className="SprintInfoPage">
 		<Form onSubmit={submitHandler}>
   			<Form.Group className="mb-3" controlId="formBasicEmail">
     			<h4>스프린트 이름</h4>
@@ -70,4 +70,4 @@ function SprintAddPage({match}, props) {
   );
 }
 
-export default SprintAddPage;
+export default SprintInfoPage;

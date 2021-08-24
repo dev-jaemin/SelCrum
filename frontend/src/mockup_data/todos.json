@@ -4,42 +4,36 @@
 		{
 			"id": 1,
 			"projectId": 1,
-			"sprintId": 0,
 			"task":"SelCrum FE 작업",
 			"todo": 1
 		},
 		{
 			"id": 2,
 			"projectId": 1,
-			"sprintId": 1,
 			"task":"SelCrum FE 작업",
 			"todo": 1
 		},
 		{
 			"id": 3,
 			"projectId": 1,
-			"sprintId": 2,
 			"task":"SelCrum FE 작업",
 			"todo": 2
 		},
 		{
 			"id": 4,
 			"projectId": 1,
-			"sprintId": 3,
 			"task":"SelCrum FE 작업",
 			"todo": 1
 		},
 		{
 			"id": 5,
 			"projectId": 1,
-			"sprintId": 4,
 			"task":"SelCrum FE 작업",
 			"todo": 3
 		},
 		{
 			"id": 6,
 			"projectId": 1,
-			"sprintId": 5,
 			"task":"SelCrum FE 작업",
 			"todo": 3
 		}

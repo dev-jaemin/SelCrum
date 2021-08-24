@@ -1,0 +1,25 @@
+.SprintAddPage{
+	height: 490px;
+	padding: 10px;
+}
+
+.postBtn{
+	position: absolute;
+	color : white;
+	background-color: rgb(0,186,255);
+	z-index : 3;
+	top: 420px;
+	left : 120px;
+	width: 120px;
+	font-weight: bolder;
+}
+
+.addTaskBtn{
+	float: right;
+	margin-top: -20px;
+}
+
+li{
+	
+	font-weight: 700;
+}

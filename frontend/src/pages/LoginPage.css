@@ -1,0 +1,10 @@
+.LoginPage{
+	height:490px;
+	padding : 80px;
+	overflow: auto;
+}
+
+Form{
+	padding: 10px;
+	1background-color: white;
+}
