@@ -9,7 +9,7 @@ function ProjectsPage({history}) {
 
 	const projectElements = projects.data.map((item, index) => {
 		return(
-			<div onClick={()=>{console.log(item.id); history.push('/project/kanban/'+item.id);}}>
+			<div onClick={()=>{console.log(item.id); history.push('/project/'+item.id+'/kanban');}}>
 				<ProjectCard key={index} id={item.id} name={item.name} info={item.info} start_date={item.start_date} end_date={item.end_date}/>
 			</div>
 		);

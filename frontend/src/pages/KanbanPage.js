@@ -14,10 +14,9 @@ import todos from "../mockup_data/todos";
 
 function KanbanPage({match}, props) {
 	let projectId = match.params.projectId;
-	let KanbanPageUrl = '/kanban/' + projectId;
-	let SprintPageUrl = '/sprint/' + projectId;
-	console.log(projectId);
-	
+	let KanbanPageUrl = '/project/' + projectId + '/kanban';
+	let SprintPageUrl = '/project/' + projectId + '/sprint';
+
 	const todoTodo = todos.data.map((item, index)=>{
 		if(item.todo === 1){
 			return (
