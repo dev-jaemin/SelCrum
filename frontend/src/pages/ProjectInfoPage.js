@@ -4,8 +4,10 @@ import React, {useState} from 'react';
 import axios from 'axios';
 import { Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Card, Button, Nav} from "react-bootstrap";
+import {Button, Nav} from "react-bootstrap";
 import SprintCard from "../components/SprintCard";
+
+import sprints from "../mockup_data/sprints";
 
 //https://darrengwon.tistory.com/337
 
@@ -14,18 +16,19 @@ import SprintCard from "../components/SprintCard";
 
 function ProjectInfoPage({match, history}, props) {
 	
-	const cardHandler = (e) => {
-		e.preventDefault();
-		
-		const url = '/sprint/' + e.target.id;
-		console.log(url);
-		history.push(url);
-	}
-	
-	
 	let projectId = match.params.projectId;
 	let KanbanPageUrl = '/project/' + projectId + '/kanban';
 	let SprintPageUrl = '/project/' + projectId + '/sprint';
+	
+	
+	const sprintElements = sprints.data.map((item, index) => {
+		
+		return(
+			<SprintCard id={item.id} name={item.name} todos="목업 파일 만들기, 개발환경 셋팅"/>
+		);
+	});
+	
+	
 	
   return (
     <div className="ProjectInfoPage">
@@ -34,15 +37,12 @@ function ProjectInfoPage({match, history}, props) {
 		<h4>term</h4>
 		<label className="color_blue">2021/07/24 ~ 2021/08/31</label>
 		<h4>sprints</h4>
-		<div onClick={cardHandler}><SprintCard id="1" name="1주차" todos="목업 파일 만들기, 개발환경 셋팅"/></div>
-		<div onClick={cardHandler}><SprintCard id="2" name="2주차" todos="목업 파일 만들기, 개발환경 셋팅"/></div>
-		<div onClick={cardHandler}><SprintCard id="3" name="3주차" todos="목업 파일 만들기, 개발환경 셋팅"/></div>
-		<div onClick={cardHandler}><SprintCard id="4" name="4주차" todos="목업 파일 만들기, 개발환경 셋팅"/></div>
+		{sprintElements}
 
 		<Button className="addSprintBtn" variant="primary">
     		+
   		</Button>
-		  <Nav variant="pills" defaultActiveKey={SprintPageUrl} className="SprintPageNav justify-content-center">
+		<Nav variant="pills" defaultActiveKey={SprintPageUrl} className="SprintPageNav justify-content-center">
   			<Nav.Item key='1'>
     			<Nav.Link href={KanbanPageUrl}>칸반 보드</Nav.Link>
   			</Nav.Item>
