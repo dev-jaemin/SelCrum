@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Card} from "react-bootstrap";
 import { Route, withRouter } from 'react-router-dom';
@@ -6,13 +6,26 @@ import './SprintCard.css';
 
 function SprintCard(props) {
 	
+	//tasks 상태관리는 여기서
+	const [tasks, setTasks] = useState([]);
+	
+	const taskElement = props.tasks.map((item, index) => {
+		return(
+			<small className="text-muted">{item.task} </small>
+		);
+	});
+
+	//history state에 함수는 못 넣음 수정바람
   return (
-		<div onClick={()=>{props.history.push('/sprint/' + props.id)}}>
+		<div onClick={()=>{props.history.push({
+			  pathname: '/sprint/' + props.id,
+			  state:{tasks:props.tasks, setTasks:setTasks}
+		  })}}>
 		<Card>
   			<Card.Body>
 				<Card.Title>{props.name}</Card.Title>
       			<Card.Text>
-        			<small className="text-muted">{props.todos}</small>
+					{taskElement}
       			</Card.Text>
 			</Card.Body>
 		</Card>

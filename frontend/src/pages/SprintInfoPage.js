@@ -9,9 +9,8 @@ import {Form, Button} from "react-bootstrap";
 //https://velog.io/@dhlee91/this.props.history.push%EB%A1%9C-props-%EB%84%98%EA%B2%A8%EC%A3%BC%EA%B8%B0
  
 
-function SprintInfoPage({match}, props) {
+function SprintInfoPage(props) {
 	const [name, setName] = useState('');
-	const [tasks, setTasks] = useState([]);
 	
 	const nameHandler = (e) => {
     	e.preventDefault();
@@ -20,18 +19,18 @@ function SprintInfoPage({match}, props) {
 
     const tasksHandler = (e) => {
     	e.preventDefault();
-    	setTasks(e.target.value);
+    	props.setTasks(e.target.value);
   	};
 	
 	const submitHandler = (e) => {
     	e.preventDefault();
     	// state에 저장한 값을 가져옵니다.
     	console.log(name);
-    	console.log(tasks);
+    	console.log(props.tasks);
 		
     	let body = {
       		name: name,
-      		tasks: tasks,
+      		tasks: props.tasks,
     	};
 
 		/*

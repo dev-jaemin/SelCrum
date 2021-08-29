@@ -8,23 +8,24 @@ import {Button, Nav} from "react-bootstrap";
 import SprintCard from "../components/SprintCard";
 
 import sprints from "../mockup_data/sprints";
+import tasks from "../mockup_data/tasks";
 
 //https://darrengwon.tistory.com/337
 
 
- 
-
-function ProjectInfoPage({match, history}, props) {
+function ProjectInfoPage(props) {
 	
-	let projectId = match.params.projectId;
+	let projectId = props.match.params.projectId;
 	let KanbanPageUrl = '/project/' + projectId + '/kanban';
 	let SprintPageUrl = '/project/' + projectId + '/sprint';
 	
-	
 	const sprintElements = sprints.data.map((item, index) => {
 		
+		const filteredTask = tasks.data.filter(element =>
+			element.projectId == projectId && element.sprintId == item.id);
+		
 		return(
-			<SprintCard id={item.id} name={item.name} todos="목업 파일 만들기, 개발환경 셋팅"/>
+			<SprintCard id={item.id} name={item.name} tasks={filteredTask}/>
 		);
 	});
 	
