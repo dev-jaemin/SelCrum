@@ -6,11 +6,25 @@ import { Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form, Button} from "react-bootstrap";
 
+
+import sprints from '../mockup_data/sprints';
+import tasks from '../mockup_data/tasks';
+
+
 //https://velog.io/@dhlee91/this.props.history.push%EB%A1%9C-props-%EB%84%98%EA%B2%A8%EC%A3%BC%EA%B8%B0
- 
+
 
 function SprintInfoPage(props) {
 	const [name, setName] = useState('');
+	
+	const sprintObj = sprints.data.find(element => element.id == props.match.params.sprintId);
+	const taskLi = tasks.data.map((item, index) => {
+		if(item.sprintId == sprintObj.id){
+			return(
+				<li>{item.text} </li>
+			);
+		}
+	});
 	
 	const nameHandler = (e) => {
     	e.preventDefault();
@@ -45,17 +59,14 @@ function SprintInfoPage(props) {
 		<Form onSubmit={submitHandler}>
   			<Form.Group className="mb-3" controlId="formBasicEmail">
     			<h4>스프린트 이름</h4>
-				<Form.Control type="text" placeholder="#주차 스프린트" value={name} onChange={nameHandler}/>
-				<Form.Label>{props.start_date} ~ {props.start_date}</Form.Label>
+				<Form.Control type="text" placeholder={sprintObj.name} onChange={nameHandler}/>
+				<Form.Label className="date">{sprintObj.start_date} ~ {sprintObj.end_date}</Form.Label>
   			</Form.Group>
 
   			<Form.Group className="mb-3" controlId="formBasicGoal">
     			<h4>해야할 일</h4>
 				<ul>
-					<li>이거하기</li>
-					<li>저거하기</li>
-					<li>요거하기</li>
-					<li>그거하기</li>
+					{taskLi}
 				</ul>
 				<Button className="addTaskBtn">추가</Button>
   			</Form.Group>

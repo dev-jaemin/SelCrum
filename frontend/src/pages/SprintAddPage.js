@@ -9,7 +9,7 @@ import {Form, Button} from "react-bootstrap";
 //https://darrengwon.tistory.com/337
  
 
-function SprintAddPage({match}, props) {
+function SprintAddPage(props) {
 	const [name, setName] = useState('');
 	const [tasks, setTasks] = useState([]);
 	
@@ -47,7 +47,7 @@ function SprintAddPage({match}, props) {
   			<Form.Group className="mb-3" controlId="formBasicEmail">
     			<h4>스프린트 이름</h4>
 				<Form.Control type="text" placeholder="#주차 스프린트" value={name} onChange={nameHandler}/>
-				<Form.Label>{props.start_date} ~ {props.start_date}</Form.Label>
+				<Form.Label className="date">{props.start_date} ~ {props.end_date}</Form.Label>
   			</Form.Group>
 
   			<Form.Group className="mb-3" controlId="formBasicGoal">

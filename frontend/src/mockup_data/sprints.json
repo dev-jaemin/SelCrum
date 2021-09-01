@@ -4,32 +4,44 @@
 		{
 			"id": 1,
 			"projectId": 1,
-			"name":"1주차"
+			"name":"1주차",
+			"start_date":"2021-07-29",
+			"end_date":"2021-08-31"
 		},
 		{
 			"id": 2,
 			"projectId": 1,
-			"name":"2주차"
+			"name":"2주차",
+			"start_date":"2021-07-29",
+			"end_date":"2021-08-31"
 		},
 		{
 			"id": 3,
 			"projectId": 1,
-			"name":"3주차"
+			"name":"3주차",
+			"start_date":"2021-07-29",
+			"end_date":"2021-08-31"
 		},
 		{
 			"id": 4,
 			"projectId": 1,
-			"name":"4주차"
+			"name":"4주차",
+			"start_date":"2021-07-29",
+			"end_date":"2021-08-31"
 		},
 		{
 			"id": 5,
 			"projectId": 1,
-			"name":"5주차"
+			"name":"5주차",
+			"start_date":"2021-07-29",
+			"end_date":"2021-08-31"
 		},
 		{
 			"id": 6,
 			"projectId": 1,
-			"name":"6주차"
+			"name":"6주차",
+			"start_date":"2021-07-29",
+			"end_date":"2021-08-31"
 		}
 		
 		

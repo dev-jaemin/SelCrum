@@ -20,7 +20,7 @@ function KanbanPage({match}, props) {
 	const todoTodo = tasks.data.map((item, index)=>{
 		if(item.todo === 1){
 			return (
-				<Kanban task={item.task} />
+				<Kanban task={item.text} />
 			);
 		}
 	});
@@ -28,7 +28,7 @@ function KanbanPage({match}, props) {
 	const doingTodo = tasks.data.map((item, index)=>{
 		if(item.todo === 2){
 			return (
-				<Kanban task={item.task} />
+				<Kanban task={item.text} />
 			);
 		}
 	});
@@ -36,7 +36,7 @@ function KanbanPage({match}, props) {
 	const doneTodo = tasks.data.map((item, index)=>{
 		if(item.todo === 3){
 			return (
-				<Kanban task={item.task} />
+				<Kanban task={item.text} />
 			);
 		}
 	});

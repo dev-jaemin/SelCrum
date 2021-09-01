@@ -4,6 +4,7 @@ import {Card} from "react-bootstrap";
 import { Route, withRouter } from 'react-router-dom';
 import './SprintCard.css';
 
+
 function SprintCard(props) {
 	
 	//tasks 상태관리는 여기서
@@ -11,16 +12,13 @@ function SprintCard(props) {
 	
 	const taskElement = props.tasks.map((item, index) => {
 		return(
-			<small className="text-muted">{item.task} </small>
+			<small className="text-muted">{item.text} </small>
 		);
 	});
 
 	//history state에 함수는 못 넣음 수정바람
   return (
-		<div onClick={()=>{props.history.push({
-			  pathname: '/sprint/' + props.id,
-			  state:{tasks:props.tasks, setTasks:setTasks}
-		  })}}>
+		<div onClick={()=>{props.history.push('/sprint/' + props.id)}}>
 		<Card>
   			<Card.Body>
 				<Card.Title>{props.name}</Card.Title>
