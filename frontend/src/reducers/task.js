@@ -5,49 +5,51 @@ import produce from 'immer';
 // 액션이름 앞에 파일 이름을 넣습니다.
 export const INSERT = "task/INSERT";
 export const MATCH = "task/MATCH";
+export const CONFIRM = "task/CONFIRM";
 
-let id = 0;
+let nextId = 1;
 
 
-export const insert = createAction(INSERT, (text, projectId, sprintId) => ({
-  text,
-  id: id++,
+export const insertTask = (projectId, text) => ({
+  type: INSERT,
+  task: {
+    id: nextId++, // 새 항목을 추가하고 nextId 값에 1을 더해줍니다.
+    text,
 	projectId,
-	sprintId
-}));
+	sprintId: 0,
+	todo:0
+  }
+});
 
-export const match = createAction(MATCH, (sprintId) => ({
-	sprintId : sprintId
-}));
+export const matchTaskWithSprint = (id, sprintId) => ({
+	type: MATCH,
+	id, sprintId
+});
+
+export const confirmTask = (id) => ({
+	type: CONFIRM,
+	id
+});
 
 const initialState = {
 	data:[]
 };
 
-//state: 현재 상태, draft:바뀔 상태
-export default handleActions(
-	{
-    	[INSERT]: (state, {payload:{ id, text, sprintId, projectId}}) => {
-			const item = {
-				id,
-				text,
-				sprintId,
-				projectId,
-				todo: 0
-			};
-		
-			return produce(state, draft => {
-				draft.data.push(item);
-			})
-		},
-		[MATCH]: (state, {payload:{ id, sprintId}}) => {
-			const index = state.data.findIndex(item => item.id === id);
-		
-			return produce(state, draft => {
-				draft.data[index].sprintId = sprintId;
-			})
-		}
-
-	},
-	initialState
-);
+export default function task(state = initialState, action) {
+  switch (action.type) {
+    case INSERT:
+      return state.concat(action.task);
+	case MATCH:
+      return produce(state, draft=>{
+		  const selectedTask = state.data.find(task => task.id == action.id);
+		  selectedTask.sprintId = action.sprintId;
+	  });
+    case CONFIRM:
+      return produce(state, draft=>{
+		  const selectedTask = state.data.find(task => task.id == action.id);
+		  selectedTask.todo = 1;
+	  });
+    default:
+      return state;
+  }
+}
