@@ -32,7 +32,50 @@ export const confirmTask = (id) => ({
 });
 
 const initialState = {
-	data:[]
+	data:[
+		{
+			"id": 1,
+			"projectId": 1,
+			"sprintId": 1,
+			"text":"task1_redux",
+			"todo": 1
+		},
+		{
+			"id": 2,
+			"projectId": 1,
+			"sprintId": 1,
+			"text":"task2_redux",
+			"todo": 1
+		},
+		{
+			"id": 3,
+			"projectId": 1,
+			"sprintId": 2,
+			"text":"task3_redux",
+			"todo": 2
+		},
+		{
+			"id": 4,
+			"projectId": 1,
+			"sprintId": 3,
+			"text":"task4_redux",
+			"todo": 1
+		},
+		{
+			"id": 5,
+			"projectId": 1,
+			"sprintId": 4,
+			"text":"task5_redux",
+			"todo": 3
+		},
+		{
+			"id": 6,
+			"projectId": 1,
+			"sprintId": 5,
+			"text":"task6_redux",
+			"todo": 3
+		}
+	]
 };
 
 export default function task(state = initialState, action) {

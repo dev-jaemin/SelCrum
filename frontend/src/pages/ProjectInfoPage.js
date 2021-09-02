@@ -7,8 +7,10 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Button, Nav} from "react-bootstrap";
 import SprintCard from "../components/SprintCard";
 
+import { useSelector, useDispatch } from 'react-redux';
+
+
 import sprints from "../mockup_data/sprints";
-import tasks from "../mockup_data/tasks";
 
 //https://darrengwon.tistory.com/337
 
@@ -19,6 +21,10 @@ function ProjectInfoPage(props) {
 	let KanbanPageUrl = '/project/' + projectId + '/kanban';
 	let SprintPageUrl = '/project/' + projectId + '/sprint';
 	
+	const tasks = useSelector(state => state.task);
+	const dispatch = useDispatch();
+
+	
 	const sprintElements = sprints.data.map((item, index) => {
 		
 		const filteredTask = tasks.data.filter(element =>
@@ -28,7 +34,6 @@ function ProjectInfoPage(props) {
 			<SprintCard id={item.id} name={item.name} tasks={filteredTask}/>
 		);
 	});
-	
 	
 	
   return (
