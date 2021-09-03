@@ -4,7 +4,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProjectsPage from './ProjectsPage';
 import ProjectAddPage from './ProjectAddPage';
-import KanbanPage from './KanbanPage';
+import KanbanPageContainer from './KanbanPageContainer';
 import ProjectInfoPage from './ProjectInfoPage';
 import SprintAddPage from './SprintAddPage';
 import SprintInfoPage from './SprintInfoPage';
@@ -20,7 +20,7 @@ function IndexPage() {
 		<Route path='/login' component={LoginPage} exact/>
 		<Route path='/project' component={ProjectsPage} exact/>
 		<Route path='/project/postpage' component={ProjectAddPage} exact/>
-		<Route path='/project/:projectId/kanban' component={KanbanPage} exact/>
+		<Route path='/project/:projectId/kanban' component={KanbanPageContainer} exact/>
 		<Route path='/project/:projectId/sprint' component={ProjectInfoPage} exact/>
 		<Route path='/sprint/postpage' component={SprintAddPage} exact/>
 		<Route path='/sprint/:sprintId' component={SprintInfoPage} exact/>

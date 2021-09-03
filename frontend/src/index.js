@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import IndexPage from './pages/IndexPage';
+import IndexPage from './containers/IndexPage';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -10,7 +10,7 @@ import { Provider } from "react-redux";
 import logger from "redux-logger";
 import { composeWithDevTools } from "redux-devtools-extension";
 
-import rootReducer from "./reducers";
+import rootReducer from "./modules";
 
 // 배포 레벨에서는 리덕스 발동시 찍히는 logger를 사용하지 않습니다.
 const enhancer =
