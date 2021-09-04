@@ -1,6 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Card, CardColumns} from "react-bootstrap";
-import { Route, Link } from 'react-router-dom';
 import './ProjectCard.css';
 
 function ProjectCard(props) {

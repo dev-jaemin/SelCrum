@@ -1,16 +1,11 @@
 import './KanbanPage.css';
 
-import React, {useState} from 'react';
-import axios from 'axios';
-import { Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Nav} from "react-bootstrap";
 import Kanban from "../components/Kanban";
-import tasks from "../mockup_data/tasks";
 
 //KanbanPage의 match에 projectId를 받아와서 API서버에 넣어서 통신예정
 //api통신할 때 componentDidMount 적당히 활용할 것
-
 
 function KanbanPage(props) {
   return (

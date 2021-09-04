@@ -5,12 +5,7 @@ import { Route } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {ListGroup} from "react-bootstrap";
 
-
-
-
-function MorePage({match}, props) {
-	
-	
+function MorePage(props) {
   return (
     <div className="MorePage">
 		<ListGroup>

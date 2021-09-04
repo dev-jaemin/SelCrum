@@ -5,7 +5,6 @@ function Kanban(props) {
 	  <div className='Kanban'>
 	  	<h5>{props.task}</h5>
 	  </div>
-	
   );
 }
 
