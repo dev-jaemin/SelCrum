@@ -85,7 +85,7 @@ export default function task(state = initialState, action) {
 	case MATCH:
       return produce(state, draft=>{
 		  const selectedTask = state.data.find(task => task.id == action.id);
-		  selectedTask.sprintId = action.sprintId;
+		  selectedTask.sprintId = parseInt(action.sprintId);
 	  });
     case CONFIRM:
       return produce(state, draft=>{

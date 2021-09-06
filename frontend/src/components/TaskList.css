@@ -1,0 +1,32 @@
+.TaskList{
+	height: 200px;
+	width: 200px;
+	overflow: auto;
+	padding: 5px;
+	text-align: left;
+	font-weight: 500;
+	
+	position: absolute;
+	z-index: 3;
+	top: 30%;
+	left: 5%;
+	1transform: translate(-50%, -50%);
+}
+
+/* 스크롤바 설정*/
+.TaskList::-webkit-scrollbar{
+    width: 6px;
+}
+
+/* 스크롤바 막대 설정*/
+.TaskList::-webkit-scrollbar-thumb{
+    height: 17%;
+    background-color: lightgrey;
+    /* 스크롤바 둥글게 설정    */
+    border-radius: 10px;    
+}
+
+/* 스크롤바 뒷 배경 설정*/
+.TaskList::-webkit-scrollbar-track{
+    background-color: rgba(0,0,0,0);
+}

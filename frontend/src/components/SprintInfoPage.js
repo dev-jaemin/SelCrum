@@ -4,6 +4,14 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form, Button} from "react-bootstrap";
 
 function SprintInfoPage(props) {
+	const taskLi = props.tasks.data.map((item, index) => {
+		if(item.sprintId == props.sprintObj.id){
+			return(
+				<li>{item.text} </li>
+			);
+		}
+	});
+	
   return (
     <div className="SprintInfoPage">
 		<Form onSubmit={props.submitHandler}>
@@ -16,14 +24,12 @@ function SprintInfoPage(props) {
   			<Form.Group className="mb-3" controlId="formBasicGoal">
     			<h4>해야할 일</h4>
 				<ul>
-					{props.taskLi}
+					{taskLi}
 				</ul>
-				<Button className="addTaskBtn">추가</Button>
+				<input type="button" className="addTaskBtn" value="추가" disabled="" onClick={props.addTaskHandler} ref={props.addBtnRef}/>
   			</Form.Group>
 
-  			<Button className="postBtn" variant="primary" type="submit">
-    			저장
-  			</Button>
+  			<input type="button" className="postBtn" variant="primary" type="submit" disabled="" value="저장" disabled="" onClick={props.submitHandler} ref={props.submitBtnRef}/>
 		</Form>
     </div>
 	 

@@ -1,34 +1,42 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import axios from 'axios';
 import { Route } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import {insertTask, matchTaskWithSprint, confirmTask} from '../modules/task';
 
 import sprints from '../mockup_data/sprints';
-import tasks from '../mockup_data/tasks';
 
 import SprintInfoPage from '../components/SprintInfoPage';
+import TaskList from '../components/TaskList';
 
 //https://velog.io/@dhlee91/this.props.history.push%EB%A1%9C-props-%EB%84%98%EA%B2%A8%EC%A3%BC%EA%B8%B0
 
 function SprintInfoPageContainer(props) {
 	const [name, setName] = useState('');
+	const addBtnRef = useRef();
+	const submitBtnRef = useRef();
+	
+	const tasks = useSelector(state => state.task);
+	const dispatch = useDispatch();
 	
 	const sprintObj = sprints.data.find(element => element.id == props.match.params.sprintId);
-	const taskLi = tasks.data.map((item, index) => {
-		if(item.sprintId == sprintObj.id){
-			return(
-				<li>{item.text} </li>
-			);
-		}
-	});
 	
 	const nameHandler = (e) => {
     	e.preventDefault();
     	setName(e.target.value);
   	};
+	
+	const addTaskHandler = (e) => {
+		e.preventDefault();
+		
+		addBtnRef.current.disabled="true";
+		submitBtnRef.current.disabled="true";
+	};
 
-    const tasksHandler = (e) => {
+    const taskHandler = (e) => {
     	e.preventDefault();
-    	props.setTasks(e.target.value);
+		
+		dispatch(matchTaskWithSprint(e.target.id, props.match.params.sprintId));
   	};
 	
 	const submitHandler = (e) => {
@@ -49,8 +57,11 @@ function SprintInfoPageContainer(props) {
 		*/
   };
 	
-  return (	 
-	<SprintInfoPage submitHandler={submitHandler} sprintObj={sprintObj} nameHandler={nameHandler} taskLi={taskLi} />
+  return (
+	  <div>
+		<SprintInfoPage submitHandler={submitHandler} sprintObj={sprintObj} nameHandler={nameHandler} addTaskHandler={addTaskHandler} tasks={tasks} addBtnRef={addBtnRef} submitBtnRef={submitBtnRef}/>
+	  	<TaskList tasks={tasks} taskHandler={taskHandler} sprintObj={sprintObj} />
+	  </div>
   );
 }
 
