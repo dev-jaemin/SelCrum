@@ -14,7 +14,7 @@ function TaskList(props) {
 		}
 	});
   return (
-    <div className="TaskList">
+    <div className="TaskList" style={{"display":"none"}} ref={props.taskListRef}>
 		<ListGroup>
   			{taskLi}
 		</ListGroup>

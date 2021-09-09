@@ -18,8 +18,12 @@ const enhancer =
     ? compose(applyMiddleware())
     : composeWithDevTools(applyMiddleware(logger));
 
+//chrome extension Redux devTools 적용 코드
+const devTools =
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+
 // 위에서 만든 reducer를 스토어 만들때 넣어줍니다
-const store = createStore(rootReducer, enhancer);
+const store = createStore(rootReducer, devTools);
 
 ReactDOM.render(
   <React.StrictMode>

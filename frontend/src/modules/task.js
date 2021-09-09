@@ -78,18 +78,22 @@ const initialState = {
 	]
 };
 
+//state를 건드리는 것이 아니라 draft(초안, state가 복사되어 있음)를 수정해야 하는 것이다.
 export default function task(state = initialState, action) {
   switch (action.type) {
     case INSERT:
-      return state.concat(action.task);
+	  return produce(state, draft=>{
+		  draft.concat(action.task);
+	  })
 	case MATCH:
       return produce(state, draft=>{
-		  const selectedTask = state.data.find(task => task.id == action.id);
+		  const selectedTask = draft.data.find(t => t.id == action.id);
+
 		  selectedTask.sprintId = parseInt(action.sprintId);
 	  });
     case CONFIRM:
       return produce(state, draft=>{
-		  const selectedTask = state.data.find(task => task.id == action.id);
+		  const selectedTask = draft.data.find(task => task.id == action.id);
 		  selectedTask.todo = 1;
 	  });
     default:

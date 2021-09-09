@@ -26,10 +26,10 @@ function SprintInfoPage(props) {
 				<ul>
 					{taskLi}
 				</ul>
-				<input type="button" className="addTaskBtn" value="추가" disabled="" onClick={props.addTaskHandler} ref={props.addBtnRef}/>
+				<input type="button" className="addTaskBtn" value="추가" disabled={props.btnState} onClick={props.addTaskHandler}/>
   			</Form.Group>
 
-  			<input type="button" className="postBtn" variant="primary" type="submit" disabled="" value="저장" disabled="" onClick={props.submitHandler} ref={props.submitBtnRef}/>
+  			<input type="button" className="postBtn" variant="primary" type="submit" disabled="" value="저장" disabled={props.btnState} onClick={props.submitHandler}/>
 		</Form>
     </div>
 	 

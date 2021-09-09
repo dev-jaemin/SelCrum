@@ -13,8 +13,11 @@ import TaskList from '../components/TaskList';
 
 function SprintInfoPageContainer(props) {
 	const [name, setName] = useState('');
+	const [btnState, setBtnState] = useState(false);
+
 	const addBtnRef = useRef();
 	const submitBtnRef = useRef();
+	const taskListRef = useRef();
 	
 	const tasks = useSelector(state => state.task);
 	const dispatch = useDispatch();
@@ -29,14 +32,16 @@ function SprintInfoPageContainer(props) {
 	const addTaskHandler = (e) => {
 		e.preventDefault();
 		
-		addBtnRef.current.disabled="true";
-		submitBtnRef.current.disabled="true";
+		setBtnState(!btnState);
+		taskListRef.current.style="display:block";
 	};
 
     const taskHandler = (e) => {
     	e.preventDefault();
 		
 		dispatch(matchTaskWithSprint(e.target.id, props.match.params.sprintId));
+		setBtnState(!btnState);
+		taskListRef.current.style="display:none";
   	};
 	
 	const submitHandler = (e) => {
@@ -59,8 +64,8 @@ function SprintInfoPageContainer(props) {
 	
   return (
 	  <div>
-		<SprintInfoPage submitHandler={submitHandler} sprintObj={sprintObj} nameHandler={nameHandler} addTaskHandler={addTaskHandler} tasks={tasks} addBtnRef={addBtnRef} submitBtnRef={submitBtnRef}/>
-	  	<TaskList tasks={tasks} taskHandler={taskHandler} sprintObj={sprintObj} />
+		<SprintInfoPage submitHandler={submitHandler} sprintObj={sprintObj} nameHandler={nameHandler} addTaskHandler={addTaskHandler} tasks={tasks} btnState={btnState}/>
+	  	<TaskList tasks={tasks} taskHandler={taskHandler} sprintObj={sprintObj} taskListRef={taskListRef}/>
 	  </div>
   );
 }
