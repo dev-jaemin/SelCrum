@@ -1,39 +1,57 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import axios from 'axios';
 import { Route } from 'react-router-dom';
-
-import SprintAddPage from '../components/SprintAddPage';
+import { useSelector, useDispatch } from 'react-redux';
+import {insertTask, matchTaskWithSprint, confirmTask} from '../modules/task';
 
 import sprints from '../mockup_data/sprints';
-import tasks from '../mockup_data/tasks';
- 
+
+import SprintAddPage from '../components/SprintAddPage';
+import TaskList from '../components/TaskList';
+
+//https://velog.io/@dhlee91/this.props.history.push%EB%A1%9C-props-%EB%84%98%EA%B2%A8%EC%A3%BC%EA%B8%B0
+
 function SprintAddPageContainer(props) {
 	const [name, setName] = useState('');
+	const [btnState, setBtnState] = useState(false);
+
+	const addBtnRef = useRef();
+	const submitBtnRef = useRef();
+	const taskListRef = useRef();
 	
-	const sprintObj = sprints.data.find(element => element.id == props.match.params.sprintId);
-	const taskLi = tasks.data.map((item, index) => {
-		if(item.sprintId == sprintObj.id){
-			return(
-				<li>{item.text} </li>
-			);
-		}
-	});
+	const tasks = useSelector(state => state.task);
+	const dispatch = useDispatch();
+	
+	//const sprintObj = sprints.data.find(element => element.id == props.match.params.sprintId);
+	
+	const newId = sprints.data.length+1;
+	console.log(newId);
 	
 	const nameHandler = (e) => {
     	e.preventDefault();
     	setName(e.target.value);
   	};
+	
+	const addTaskHandler = (e) => {
+		e.preventDefault();
+		
+		setBtnState(!btnState);
+		taskListRef.current.style="display:block";
+	};
 
-    const tasksHandler = (e) => {
+    const taskHandler = (e) => {
     	e.preventDefault();
-    	props.setTasks(e.target.value);
+		
+		dispatch(matchTaskWithSprint(e.target.id, newId));
+		setBtnState(!btnState);
+		taskListRef.current.style="display:none";
   	};
 	
 	const submitHandler = (e) => {
     	e.preventDefault();
     	// state에 저장한 값을 가져옵니다.
     	console.log(name);
-    	console.log(tasks);
+    	console.log(props.tasks);
 		
     	let body = {
       		name: name,
@@ -48,7 +66,10 @@ function SprintAddPageContainer(props) {
   };
 	
   return (
-	  <SprintAddPage submitHandler={submitHandler} sprintObj={sprintObj} nameHandler={nameHandler} taskLi={taskLi} />
+	  <div>
+		<SprintAddPage submitHandler={submitHandler} nameHandler={nameHandler} addTaskHandler={addTaskHandler} tasks={tasks} btnState={btnState} newId={newId}/>
+	  	<TaskList tasks={tasks} taskHandler={taskHandler} taskListRef={taskListRef} isInfoPage={false}/>
+	  </div>
   );
 }
 

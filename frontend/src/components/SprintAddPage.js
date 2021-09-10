@@ -1,30 +1,34 @@
-import './SprintAddPage.css';
+import './SprintInfoPage.css';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {Form, Button} from "react-bootstrap";
 
-
 function SprintAddPage(props) {
+	const taskLi = props.tasks.data.map((item, index) => {
+		if(item.sprintId == props.newId){
+			return(
+				<li>{item.text} </li>
+			);
+		}
+	});
+	
   return (
     <div className="SprintInfoPage">
 		<Form onSubmit={props.submitHandler}>
   			<Form.Group className="mb-3" controlId="formBasicEmail">
     			<h4>스프린트 이름</h4>
-				<Form.Control type="text" placeholder={props.sprintObj.name} onChange={props.nameHandler}/>
-				<Form.Label className="date">{props.sprintObj.start_date} ~ {props.sprintObj.end_date}</Form.Label>
+				<Form.Control type="text" onChange={props.nameHandler}/>
   			</Form.Group>
 
   			<Form.Group className="mb-3" controlId="formBasicGoal">
     			<h4>해야할 일</h4>
 				<ul>
-					{props.taskLi}
+					{taskLi}
 				</ul>
-				<Button className="addTaskBtn">추가</Button>
+				<input type="button" className="addTaskBtn" value="추가" disabled={props.btnState} onClick={props.addTaskHandler}/>
   			</Form.Group>
 
-  			<Button className="postBtn" variant="primary" type="submit">
-    			저장
-  			</Button>
+  			<input type="button" className="postBtn" variant="primary" type="submit" disabled="" value="저장" disabled={props.btnState} onClick={props.submitHandler}/>
 		</Form>
     </div>
 	 

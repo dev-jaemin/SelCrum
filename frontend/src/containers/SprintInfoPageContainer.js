@@ -23,6 +23,7 @@ function SprintInfoPageContainer(props) {
 	const dispatch = useDispatch();
 	
 	const sprintObj = sprints.data.find(element => element.id == props.match.params.sprintId);
+	console.log(sprintObj);
 	
 	const nameHandler = (e) => {
     	e.preventDefault();
@@ -65,7 +66,7 @@ function SprintInfoPageContainer(props) {
   return (
 	  <div>
 		<SprintInfoPage submitHandler={submitHandler} sprintObj={sprintObj} nameHandler={nameHandler} addTaskHandler={addTaskHandler} tasks={tasks} btnState={btnState}/>
-	  	<TaskList tasks={tasks} taskHandler={taskHandler} sprintObj={sprintObj} taskListRef={taskListRef}/>
+	  	<TaskList tasks={tasks} taskHandler={taskHandler} sprintObj={sprintObj} taskListRef={taskListRef} isInfoPage={true}/>
 	  </div>
   );
 }

@@ -3,6 +3,7 @@ import './IndexPage.css';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ProjectsPageContainer from './ProjectsPageContainer';
+import ProjectsPageContainer_done from './ProjectsPageContainer_done';
 import ProjectAddPageContainer from './ProjectAddPageContainer';
 import KanbanPageContainer from './KanbanPageContainer';
 import ProjectInfoPageContainer from './ProjectInfoPageContainer';
@@ -18,11 +19,12 @@ function IndexPage() {
     	<Route path='/' component={Header} />
 		<Route path='/' component={ProjectsPageContainer} exact/>
 		<Route path='/login' component={LoginPageContainer} exact/>
-		<Route path='/project' component={ProjectsPageContainer} exact/>
+		<Route path='/project/doing' component={ProjectsPageContainer} exact/>
+		<Route path='/project/done' component={ProjectsPageContainer_done} exact/>
 		<Route path='/project/postpage' component={ProjectAddPageContainer} exact/>
 		<Route path='/project/:projectId/kanban' component={KanbanPageContainer} exact/>
 		<Route path='/project/:projectId/sprint' component={ProjectInfoPageContainer} exact/>
-		<Route path='/sprint/postpage' component={SprintAddPageContainer} exact/>
+		<Route path='/sprint/postpage/page' component={SprintAddPageContainer} exact/>
 		<Route path='/sprint/:sprintId' component={SprintInfoPageContainer} exact/>
 		<Route path='/more' component={MorePageContainer} exact/>
 		<Route path='/' component={Footer} exact/>
