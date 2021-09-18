@@ -1,5 +1,5 @@
-import mysql from 'mysql2/promise';
-import config from './dbconfig.js';
+import mysql from "mysql2/promise";
+import config from "./dbconfig.js";
 
 let pool = mysql.createPool(config);
 
@@ -11,21 +11,21 @@ let pool = mysql.createPool(config);
     });
 }*/
 
-async function getConnection(query, values){
-    let result = [];
-    try{
-        let connection = await pool.getConnection(async conn => conn);
-        try{
-            result = await connection.query(query, values);
-            connection.release();
-        }catch(e){
-            console.log(e);
-        }
-    } catch(e){
-        console.log(e);
+async function getConnection(query, values) {
+  let result = [];
+  try {
+    let connection = await pool.getConnection(async (conn) => conn);
+    try {
+      result = await connection.query(query, values);
+      connection.release();
+    } catch (e) {
+      console.log(e);
     }
+  } catch (e) {
+    console.log(e);
+  }
 
-    return result;
+  return result;
 }
 
-export {getConnection};
+export { getConnection };

@@ -1,13 +1,11 @@
-import React, {useState} from 'react';
-import { Route } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState } from "react";
+import { Route } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 
-import TaskList from '../components/TaskList';
+import TaskList from "../components/TaskList";
 
 function TaskListContainer(props) {
-  return (
-    <TaskList />
-  );
+  return <TaskList />;
 }
 
 export default TaskListContainer;
