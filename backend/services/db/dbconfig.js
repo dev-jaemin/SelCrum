@@ -1,9 +1,9 @@
 const config = {
   host: "localhost",
-  user: "0262user",
+  user: "selcrumUser",
   port: 3306,
-  password: "0262fighting!",
-  database: "goondb",
+  password: "iamkor202!",
+  database: "selcrumdb",
   connectionLimit: 30,
 };
 
