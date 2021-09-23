@@ -13,6 +13,9 @@ import MorePageContainer from "./MorePageContainer";
 import { Route } from "react-router-dom";
 
 function IndexPage() {
+  //개발용 예시 로그인
+  window.localStorage.setItem("userId", "test1");
+
   return (
     <div className="IndexPage">
       <Route path="/" component={Header} />

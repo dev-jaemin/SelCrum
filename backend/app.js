@@ -8,9 +8,10 @@ import logger from "morgan";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import ejs from "ejs";
+import cors from "cors";
 
 const app = express();
-const port = 3000;
+const port = 4000;
 
 //es6 type:module은 __dirname이 없음.
 const __filename = fileURLToPath(import.meta.url);
@@ -35,6 +36,14 @@ app.use(
 app.use(express.static("public"));
 app.use(logger("dev"));
 
+//3000번 포트에서도 api서버와 통신할 수 있게끔 설정. 이거 없으면 CORS 위반이라 해서 같은 포트 아니면 통신안됌.
+const corsOptions = {
+  origin: "http://localhost:3000",
+  credentials: true,
+};
+
+app.use(cors());
+
 //옛날엔 body-parser 모듈 썼는데 이젠 express 내장 객체되어서 req.body 내용 파싱할 때 이렇게 설정하면 됌.
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
@@ -57,5 +66,7 @@ app.use(function (err, req, res, next) {
 });
 
 const server = app.listen(port, function () {
-  console.log("Express server has started on port 3000(http://localhost:3000)");
+  console.log(
+    `Express server has started on port ${port}(http://localhost:${port})`
+  );
 });

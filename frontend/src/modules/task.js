@@ -6,6 +6,7 @@ import produce from "immer";
 export const INSERT = "task/INSERT";
 export const MATCH = "task/MATCH";
 export const CONFIRM = "task/CONFIRM";
+export const API_INIT = "task/API_INIT";
 
 let nextId = 1;
 
@@ -31,48 +32,53 @@ export const confirmTask = (id) => ({
   id,
 });
 
+export const setInitTask = (apiTasks) => ({
+  type: API_INIT,
+  apiTasks,
+});
+
 const initialState = {
   data: [
     {
       id: 1,
       projectId: 1,
       sprintId: 1,
-      text: "task1_redux",
+      task: "task1_redux",
       todo: 1,
     },
     {
       id: 2,
       projectId: 1,
       sprintId: 1,
-      text: "task2_redux",
+      task: "task2_redux",
       todo: 1,
     },
     {
       id: 3,
       projectId: 1,
       sprintId: 2,
-      text: "task3_redux",
+      task: "task3_redux",
       todo: 2,
     },
     {
       id: 4,
       projectId: 1,
       sprintId: 3,
-      text: "task4_redux",
+      task: "task4_redux",
       todo: 1,
     },
     {
       id: 5,
       projectId: 1,
       sprintId: 4,
-      text: "task5_redux",
+      task: "task5_redux",
       todo: 3,
     },
     {
       id: 6,
       projectId: 1,
       sprintId: 5,
-      text: "task6_redux",
+      task: "task6_redux",
       todo: 3,
     },
   ],
@@ -95,6 +101,10 @@ export default function task(state = initialState, action) {
       return produce(state, (draft) => {
         const selectedTask = draft.data.find((task) => task.id == action.id);
         selectedTask.todo = 1;
+      });
+    case API_INIT:
+      return produce(state, (draft) => {
+        draft.data = action.apiTasks;
       });
     default:
       return state;

@@ -1,27 +1,22 @@
 import "./ProjectInfoPage.css";
+import moment from "moment";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Nav } from "react-bootstrap";
 import SprintCard from "../components/SprintCard";
 
 function ProjectInfoPage(props) {
-  const sprintElements = props.sprints.data.map((item, index) => {
-    const filteredTask = props.tasks.data.filter(
-      (element) =>
-        element.projectId == props.projectId && element.sprintId == item.id
-    );
-
-    return <SprintCard id={item.id} name={item.name} tasks={filteredTask} />;
-  });
-
   return (
     <div className="ProjectInfoPage">
       <h4>project</h4>
-      <label className="color_blue">SelCrum FE</label>
+      <label className="color_blue">{props.project.name}</label>
       <h4>term</h4>
-      <label className="color_blue">2021/07/24 ~ 2021/08/31</label>
+      <label className="color_blue">
+        {moment(props.project.start_date).format("YYYY-MM-DD")} ~{" "}
+        {moment(props.project.end_date).format("YYYY-MM-DD")}
+      </label>
       <h4>sprints</h4>
-      {sprintElements}
+      {props.sprintElements}
 
       <Button className="addSprintBtn" variant="primary">
         +
