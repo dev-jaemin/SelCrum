@@ -6,6 +6,9 @@ import { insertTask, matchTaskWithSprint, confirmTask } from "../modules/task";
 
 import sprints from "../mockup_data/sprints";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import { ListGroup } from "react-bootstrap";
+
 import SprintAddPage from "../components/SprintAddPage";
 import TaskList from "../components/TaskList";
 
@@ -35,8 +38,12 @@ function SprintAddPageContainer(props) {
   const addTaskHandler = (e) => {
     e.preventDefault();
 
-    setBtnState(!btnState);
-    taskListRef.current.style = "display:block";
+    if (tasksNotInSprint.length > 0) {
+      setBtnState(!btnState);
+      taskListRef.current.style = "display:block";
+    } else {
+      alert("해야할 일이 없습니다.");
+    }
   };
 
   const taskHandler = (e) => {
@@ -65,6 +72,22 @@ function SprintAddPageContainer(props) {
 		*/
   };
 
+  const tasksNotInSprint = tasks.data
+    .map((item) => {
+      if (item.sprint_id !== newId) {
+        return (
+          <ListGroup.Item
+            key={item.task_id}
+            id={item.task_id}
+            onClick={taskHandler}
+          >
+            {item.task}
+          </ListGroup.Item>
+        );
+      }
+    })
+    .filter((item) => item !== undefined);
+
   return (
     <div>
       <SprintAddPage
@@ -80,6 +103,7 @@ function SprintAddPageContainer(props) {
         taskHandler={taskHandler}
         taskListRef={taskListRef}
         isInfoPage={false}
+        taskLi={tasksNotInSprint}
       />
     </div>
   );

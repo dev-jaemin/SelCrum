@@ -6,6 +6,9 @@ import { insertTask, matchTaskWithSprint, confirmTask } from "../modules/task";
 
 import sprints from "../mockup_data/sprints";
 
+import "bootstrap/dist/css/bootstrap.min.css";
+import { ListGroup } from "react-bootstrap";
+
 import SprintInfoPage from "../components/SprintInfoPage";
 import TaskList from "../components/TaskList";
 
@@ -23,9 +26,8 @@ function SprintInfoPageContainer(props) {
   const dispatch = useDispatch();
 
   const sprintObj = sprints.data.find(
-    (element) => element.id == props.match.params.sprintId
+    (element) => element.sprint_id === parseInt(props.match.params.sprintId)
   );
-  console.log(sprintObj);
 
   const nameHandler = (e) => {
     e.preventDefault();
@@ -35,13 +37,18 @@ function SprintInfoPageContainer(props) {
   const addTaskHandler = (e) => {
     e.preventDefault();
 
-    setBtnState(!btnState);
-    taskListRef.current.style = "display:block";
+    if (tasksNotInSprint.length > 0) {
+      setBtnState(!btnState);
+      taskListRef.current.style = "display:block";
+    } else {
+      alert("해야할 일이 없습니다.");
+    }
   };
 
   const taskHandler = (e) => {
     e.preventDefault();
 
+    console.log(e.target.id);
     dispatch(matchTaskWithSprint(e.target.id, props.match.params.sprintId));
     setBtnState(!btnState);
     taskListRef.current.style = "display:none";
@@ -65,6 +72,22 @@ function SprintInfoPageContainer(props) {
 		*/
   };
 
+  const tasksNotInSprint = tasks.data
+    .map((item) => {
+      if (item.sprint_id !== sprintObj.sprint_id) {
+        return (
+          <ListGroup.Item
+            key={item.task_id}
+            id={item.task_id}
+            onClick={taskHandler}
+          >
+            {item.task}
+          </ListGroup.Item>
+        );
+      }
+    })
+    .filter((item) => item !== undefined);
+
   return (
     <div>
       <SprintInfoPage
@@ -78,9 +101,8 @@ function SprintInfoPageContainer(props) {
       <TaskList
         tasks={tasks}
         taskHandler={taskHandler}
-        sprintObj={sprintObj}
         taskListRef={taskListRef}
-        isInfoPage={true}
+        taskLi={tasksNotInSprint}
       />
     </div>
   );

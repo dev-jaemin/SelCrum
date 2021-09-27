@@ -12,12 +12,13 @@ import Kanban from "../components/Kanban";
 //api통신할 때 componentDidMount 적당히 활용할 것
 
 function KanbanPageContainer({ match }, props) {
-  let projectId = match.params.projectId;
-  let KanbanPageUrl = "/project/" + projectId + "/kanban";
-  let SprintPageUrl = "/project/" + projectId + "/sprint";
-  let apiUrl = "/api/project/" + projectId + "/task";
+  const projectId = parseInt(match.params.projectId);
+  const KanbanPageUrl = "/project/" + projectId + "/kanban";
+  const SprintPageUrl = "/project/" + projectId + "/sprint";
+  const apiUrl = "/api/project/" + projectId + "/task";
 
   const tasks = useSelector((state) => state.task);
+  console.log(tasks);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -32,23 +33,29 @@ function KanbanPageContainer({ match }, props) {
       });
   }, []);
 
-  const todoTodo = tasks.data.map((item, index) => {
-    if (item.todo === 1) {
-      return <Kanban task={item.task} />;
-    }
-  });
+  const todoTodo = tasks.data
+    .map((item, index) => {
+      if (item.project_id === projectId && item.todo === 1) {
+        return <Kanban task={item.task} />;
+      }
+    })
+    .filter((item) => item !== undefined);
 
-  const doingTodo = tasks.data.map((item, index) => {
-    if (item.todo === 2) {
-      return <Kanban task={item.task} />;
-    }
-  });
+  const doingTodo = tasks.data
+    .map((item, index) => {
+      if (item.project_id === projectId && item.todo === 2) {
+        return <Kanban task={item.task} />;
+      }
+    })
+    .filter((item) => item !== undefined);
 
-  const doneTodo = tasks.data.map((item, index) => {
-    if (item.todo === 3) {
-      return <Kanban task={item.task} />;
-    }
-  });
+  const doneTodo = tasks.data
+    .map((item, index) => {
+      if (item.project_id === projectId && item.todo === 3) {
+        return <Kanban task={item.task} />;
+      }
+    })
+    .filter((item) => item !== undefined);
 
   return (
     <KanbanPage

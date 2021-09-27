@@ -12,6 +12,9 @@ import { composeWithDevTools } from "redux-devtools-extension";
 
 import rootReducer from "./modules";
 
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
+
 // 배포 레벨에서는 리덕스 발동시 찍히는 logger를 사용하지 않습니다.
 const enhancer =
   process.env.NODE_ENV === "production"
@@ -25,12 +28,17 @@ const devTools =
 // 위에서 만든 reducer를 스토어 만들때 넣어줍니다
 const store = createStore(rootReducer, devTools);
 
+//새로고침하면 리덕스에 담긴 정보 날라가는거 방지하기 위해 로컬스토리지에 저장.
+const persistor = persistStore(store);
+
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
-        <IndexPage />
-      </BrowserRouter>
+      <PersistGate loading={null} persistor={persistor}>
+        <BrowserRouter>
+          <IndexPage />
+        </BrowserRouter>
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
   document.getElementById("root")

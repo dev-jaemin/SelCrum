@@ -5,8 +5,8 @@ import { Form, Button } from "react-bootstrap";
 
 function SprintInfoPage(props) {
   const taskLi = props.tasks.data.map((item, index) => {
-    if (item.sprintId == props.sprintObj.id) {
-      return <li>{item.text} </li>;
+    if (item.sprint_id == props.sprintObj.sprint_id) {
+      return <li>{item.task} </li>;
     }
   });
 
@@ -41,8 +41,6 @@ function SprintInfoPage(props) {
           type="button"
           className="postBtn"
           variant="primary"
-          type="submit"
-          disabled=""
           value="저장"
           disabled={props.btnState}
           onClick={props.submitHandler}

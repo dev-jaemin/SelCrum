@@ -9,11 +9,13 @@ function ProjectInfoPage(props) {
   return (
     <div className="ProjectInfoPage">
       <h4>project</h4>
-      <label className="color_blue">{props.project.name}</label>
+      <label className="color_blue">
+        {props.project && props.project.name}
+      </label>
       <h4>term</h4>
       <label className="color_blue">
-        {moment(props.project.start_date).format("YYYY-MM-DD")} ~{" "}
-        {moment(props.project.end_date).format("YYYY-MM-DD")}
+        {moment(props.project && props.project.start_date).format("YYYY-MM-DD")}{" "}
+        ~ {moment(props.project && props.project.end_date).format("YYYY-MM-DD")}
       </label>
       <h4>sprints</h4>
       {props.sprintElements}

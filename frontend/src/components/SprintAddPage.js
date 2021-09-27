@@ -5,8 +5,8 @@ import { Form, Button } from "react-bootstrap";
 
 function SprintAddPage(props) {
   const taskLi = props.tasks.data.map((item, index) => {
-    if (item.sprintId == props.newId) {
-      return <li>{item.text} </li>;
+    if (item.sprint_id == props.newId) {
+      return <li>{item.task} </li>;
     }
   });
 
@@ -34,8 +34,6 @@ function SprintAddPage(props) {
           type="button"
           className="postBtn"
           variant="primary"
-          type="submit"
-          disabled=""
           value="저장"
           disabled={props.btnState}
           onClick={props.submitHandler}

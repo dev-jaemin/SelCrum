@@ -5,55 +5,61 @@ import { Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setInitTask } from "../modules/task";
 
-import sprints from "../mockup_data/sprints";
-
 import ProjectInfoPage from "../components/ProjectInfoPage";
 import SprintCard from "../components/SprintCard";
 
 //https://darrengwon.tistory.com/337
 
-function ProjectInfoPageContainer(props) {
-  let projectId = props.match.params.projectId;
-  const [currentProject, setCurrentProject] = useState({});
+const api = async (url, setState) => {
+  const { data: result } = await axios(url);
+  setState(result);
+};
 
-  let KanbanPageUrl = "/project/" + projectId + "/kanban";
-  let SprintPageUrl = "/project/" + projectId + "/sprint";
-  let apiUrl = "/api/project/" + projectId;
-  let apiUrlForTasks = "/api/project/" + projectId + "/task";
+const apiTask = async (url, dispatch) => {
+  const { data: result } = await axios(url);
+  dispatch(setInitTask(result));
+};
+
+function ProjectInfoPageContainer(props) {
+  const projectId = parseInt(props.match.params.projectId);
+  const [currentProject, setCurrentProject] = useState({});
+  const [sprints, setSprints] = useState([]);
+
+  const KanbanPageUrl = "/project/" + projectId + "/kanban";
+  const SprintPageUrl = "/project/" + projectId + "/sprint";
+
+  const apiUrlForPrj = "/api/project/" + projectId;
+  //const apiUrlForTasks = "/api/project/" + projectId + "/task";
+  const apiUrlForSpr = "/api/project/" + projectId + "/sprint";
 
   const tasks = useSelector((state) => state.task);
+  console.log(tasks);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    axios
-      .get(apiUrlForTasks)
-      .then(function (response) {
-        dispatch(setInitTask(response.data));
-        console.log(tasks);
-      })
-      .catch(function (err) {
-        console.error(err);
-      });
+    async function fetchData() {
+      api(apiUrlForPrj, setCurrentProject);
+      //apiTask(apiUrlForTasks, dispatch);
+      api(apiUrlForSpr, setSprints);
+    }
+    fetchData();
   }, []);
 
-  useEffect(() => {
-    axios
-      .get(apiUrl)
-      .then(function (response) {
-        setCurrentProject(response.data[0]);
-      })
-      .catch(function (err) {
-        console.error(err);
-      });
-  }, []);
+  let sprintElements = [];
 
-  const sprintElements = sprints.data.map((item, index) => {
-    const filteredTask = tasks.data.filter(
-      (element) => element.projectId == projectId && element.sprintId == item.id
-    );
+  if (sprints !== undefined) {
+    sprintElements = sprints.map((item, index) => {
+      const filteredTask = tasks.data.filter(
+        (element) =>
+          element.project_id === projectId &&
+          element.sprint_id === item.sprint_id
+      );
 
-    return <SprintCard id={item.id} name={item.name} tasks={filteredTask} />;
-  });
+      return (
+        <SprintCard id={item.sprint_id} name={item.name} tasks={filteredTask} />
+      );
+    });
+  }
 
   return (
     <ProjectInfoPage
@@ -61,7 +67,7 @@ function ProjectInfoPageContainer(props) {
       KanbanPageUrl={KanbanPageUrl}
       sprints={sprints}
       tasks={tasks}
-      project={currentProject}
+      project={currentProject[0]}
       sprintElements={sprintElements}
     />
   );

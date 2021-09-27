@@ -21,9 +21,9 @@ export const insertTask = (projectId, text) => ({
   },
 });
 
-export const matchTaskWithSprint = (id, sprintId) => ({
+export const matchTaskWithSprint = (task_id, sprintId) => ({
   type: MATCH,
-  id,
+  task_id,
   sprintId,
 });
 
@@ -40,46 +40,46 @@ export const setInitTask = (apiTasks) => ({
 const initialState = {
   data: [
     {
-      id: 1,
-      projectId: 1,
-      sprintId: 1,
+      task_id: 1,
+      project_id: 1,
+      sprint_id: 3,
       task: "task1_redux",
       todo: 1,
     },
     {
-      id: 2,
-      projectId: 1,
-      sprintId: 1,
+      task_id: 2,
+      project_id: 1,
+      sprint_id: 3,
       task: "task2_redux",
       todo: 1,
     },
     {
-      id: 3,
-      projectId: 1,
-      sprintId: 2,
+      task_id: 3,
+      project_id: 1,
+      sprint_id: 3,
       task: "task3_redux",
-      todo: 2,
-    },
-    {
-      id: 4,
-      projectId: 1,
-      sprintId: 3,
-      task: "task4_redux",
       todo: 1,
     },
     {
-      id: 5,
-      projectId: 1,
-      sprintId: 4,
+      task_id: 4,
+      project_id: 1,
+      sprint_id: 3,
+      task: "task4_redux",
+      todo: 2,
+    },
+    {
+      task_id: 5,
+      project_id: 1,
+      sprint_id: 3,
       task: "task5_redux",
       todo: 3,
     },
     {
-      id: 6,
-      projectId: 1,
-      sprintId: 5,
+      task_id: 6,
+      project_id: 1,
+      sprint_id: 3,
       task: "task6_redux",
-      todo: 3,
+      todo: 2,
     },
   ],
 };
@@ -89,13 +89,15 @@ export default function task(state = initialState, action) {
   switch (action.type) {
     case INSERT:
       return produce(state, (draft) => {
-        draft.concat(action.task);
+        draft.data.concat(action.task);
       });
     case MATCH:
       return produce(state, (draft) => {
-        const selectedTask = draft.data.find((t) => t.id == action.id);
+        const selectedTask = draft.data.find(
+          (t) => t.task_id === parseInt(action.task_id)
+        );
 
-        selectedTask.sprintId = parseInt(action.sprintId);
+        selectedTask.sprint_id = parseInt(action.sprintId);
       });
     case CONFIRM:
       return produce(state, (draft) => {

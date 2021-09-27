@@ -61,7 +61,7 @@ ProjectService.getTasksByProjectId = async (projectId) => {
   let result = [];
 
   result = await getConnection(
-    "SELECT * FROM tasks WHERE project_id=?",
+    "SELECT * FROM tasks NATURAL JOIN task_sprint WHERE project_id=?",
     projectId
   );
 
