@@ -1,4 +1,5 @@
 import { getConnection } from "./db/database.js";
+import assert from "assert";
 
 const ProjectService = {};
 
@@ -14,8 +15,12 @@ ProjectService.getProjects = async (params) => {
   return result[0];
 };
 
-ProjectService.addProject = async (newProject) => {
-  await getConnection("INSERT INTO projects set ?", newProject);
+ProjectService.addProject = async (newProject, userId) => {
+  const result = await getConnection("INSERT INTO projects set ?", newProject);
+  await getConnection("INSERT INTO user_project set ?", {
+    user_id: userId,
+    project_id: result[0].insertId,
+  });
 };
 
 ProjectService.getProjectById = async (projectId) => {
@@ -52,11 +57,19 @@ ProjectService.getSprintsByProjectId = async (projectId) => {
   return result[0];
 };
 
-//Task 관련 서비스
-ProjectService.addSprint = async (newSprint) => {
-  await getConnection("INSERT INTO sprints set ?", newSprint);
+ProjectService.addSprint = async (newSprint, tasks) => {
+  const result = await getConnection("INSERT INTO sprints set ?", newSprint);
+  for (const t of tasks) {
+    await getConnection("INSERT INTO task_sprint set ?", {
+      task_id: t,
+      sprint_id: result[0].insertId,
+    });
+  }
+
+  return result[0].insertId;
 };
 
+//Task 관련 서비스
 ProjectService.getTasksByProjectId = async (projectId) => {
   let result = [];
 

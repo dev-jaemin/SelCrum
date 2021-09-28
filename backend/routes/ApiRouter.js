@@ -26,16 +26,16 @@ router.get("/project", async function (req, res, next) {
 
 //프로젝트 정보 post
 //get방식은 query에 파라미터를 전달하고 post방식은 body에 숨겨서 보낸다.(body-parser(이제는 express에 내장됌) 사용)
-router.post("/project", async function (req, res) {
+router.post("/project", async function (req, res, next) {
   let newProject = {
     name: req.body.name,
     info: req.body.info,
-    start_date: req.body.start_date,
     end_date: req.body.end_date,
   };
 
   try {
-    res.send(await ProjectService.addProject(newProject));
+    await ProjectService.addProject(newProject, req.body.user_id);
+    res.status(200);
   } catch (err) {
     console.error(err);
     next(err);
@@ -43,7 +43,7 @@ router.post("/project", async function (req, res) {
 });
 
 //projectId가 있을 때 프로젝트 정보 응답
-router.get("/project/:projectId", async function (req, res) {
+router.get("/project/:projectId", async function (req, res, next) {
   try {
     res.send(await ProjectService.getProjectById(req.params.projectId));
   } catch (err) {
@@ -53,7 +53,7 @@ router.get("/project/:projectId", async function (req, res) {
 });
 
 //sprintId가 있을 때 프로젝트 정보 응답
-router.get("/sprint/:sprintId", async function (req, res) {
+router.get("/sprint/:sprintId", async function (req, res, next) {
   try {
     res.send(await ProjectService.getSprintById(req.params.sprintId));
   } catch (err) {
@@ -63,7 +63,7 @@ router.get("/sprint/:sprintId", async function (req, res) {
 });
 
 //projectId가 있을 때 프로젝트의 스프린트들을 응답하는 함수
-router.get("/project/:projectId/sprint", async function (req, res) {
+router.get("/project/:projectId/sprint", async function (req, res, next) {
   try {
     res.send(await ProjectService.getSprintsByProjectId(req.params.projectId));
   } catch (err) {
@@ -72,8 +72,25 @@ router.get("/project/:projectId/sprint", async function (req, res) {
   }
 });
 
+//새 스프린트 post
+router.post("/sprint", async function (req, res, next) {
+  let newSprint = {
+    name: req.body.name,
+    project_id: req.body.project_id,
+    end_date: req.body.end_date,
+  };
+  console.log(req.body.tasks);
+  try {
+    await ProjectService.addSprint(newSprint, req.body.tasks);
+    res.status(200);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 //projectId가 있을 때 프로젝트의 task들을 응답하는 함수
-router.get("/project/:projectId/task", async function (req, res) {
+router.get("/project/:projectId/task", async function (req, res, next) {
   try {
     res.send(await ProjectService.getTasksByProjectId(req.params.projectId));
   } catch (err) {
@@ -83,7 +100,7 @@ router.get("/project/:projectId/task", async function (req, res) {
 });
 
 //sprintId가 있을 때 스프린트의 task들을 응답하는 함수
-router.get("/sprint/:sprintId/task", async function (req, res) {
+router.get("/sprint/:sprintId/task", async function (req, res, next) {
   try {
     res.send(await ProjectService.getTasksBySprintId(req.params.sprintId));
   } catch (err) {

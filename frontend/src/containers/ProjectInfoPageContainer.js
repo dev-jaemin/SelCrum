@@ -34,7 +34,7 @@ function ProjectInfoPageContainer(props) {
 
   const tasks = useSelector((state) => state.task);
   console.log(tasks);
-  const dispatch = useDispatch();
+  //const dispatch = useDispatch();
 
   useEffect(() => {
     async function fetchData() {
@@ -44,6 +44,10 @@ function ProjectInfoPageContainer(props) {
     }
     fetchData();
   }, []);
+
+  const addHandler = () => {
+    props.history.push("/" + projectId + "/sprint/postpage/page");
+  };
 
   let sprintElements = [];
 
@@ -69,6 +73,7 @@ function ProjectInfoPageContainer(props) {
       tasks={tasks}
       project={currentProject[0]}
       sprintElements={sprintElements}
+      addHandler={addHandler}
     />
   );
 }

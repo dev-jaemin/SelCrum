@@ -25,8 +25,8 @@ function ProjectAddPage(props) {
           <Form.Control
             as="textarea"
             rows={3}
-            value={props.goal}
-            onChange={props.goalHandler}
+            value={props.info}
+            onChange={props.infoHandler}
           />
           {/*<Form.Text className="text-muted">
       				목표 한 가지를 적으시고 등록 버튼을 눌러주세요!

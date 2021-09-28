@@ -3,7 +3,6 @@ import moment from "moment";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, Nav } from "react-bootstrap";
-import SprintCard from "../components/SprintCard";
 
 function ProjectInfoPage(props) {
   return (
@@ -18,9 +17,13 @@ function ProjectInfoPage(props) {
         ~ {moment(props.project && props.project.end_date).format("YYYY-MM-DD")}
       </label>
       <h4>sprints</h4>
-      {props.sprintElements}
+      <div className="sprintElements">{props.sprintElements}</div>
 
-      <Button className="addSprintBtn" variant="primary">
+      <Button
+        className="addSprintBtn"
+        variant="primary"
+        onClick={props.addHandler}
+      >
         +
       </Button>
       <Nav

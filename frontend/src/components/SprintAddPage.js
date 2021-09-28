@@ -6,7 +6,11 @@ import { Form, Button } from "react-bootstrap";
 function SprintAddPage(props) {
   const taskLi = props.tasks.data.map((item, index) => {
     if (item.sprint_id == props.newId) {
-      return <li>{item.task} </li>;
+      return (
+        <li onClick={props.removeTaskHandler} id={item.task_id}>
+          {item.task}{" "}
+        </li>
+      );
     }
   });
 
@@ -27,6 +31,15 @@ function SprintAddPage(props) {
             value="추가"
             disabled={props.btnState}
             onClick={props.addTaskHandler}
+          />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicDeadline">
+          <h4>마감일</h4>
+          <Form.Control
+            type="date"
+            value={props.deadline}
+            onChange={props.deadlineHandler}
           />
         </Form.Group>
 

@@ -43,7 +43,7 @@ function IndexPage() {
         exact
       />
       <Route
-        path="/sprint/postpage/page"
+        path="/:projectId/sprint/postpage/page"
         component={SprintAddPageContainer}
         exact
       />

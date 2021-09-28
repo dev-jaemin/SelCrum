@@ -1,50 +1,55 @@
-.ProjectsPage{
-	height:490px;
-	padding : 10px;
-	overflow: auto;
+.ProjectsPage {
+  height: 490px;
+  padding: 10px;
+  overflow: auto;
 }
 
 /* 스크롤바 설정*/
-.ProjectsPage::-webkit-scrollbar{
-    width: 6px;
+.ProjectsPage::-webkit-scrollbar {
+  width: 6px;
 }
 
 /* 스크롤바 막대 설정*/
-.ProjectsPage::-webkit-scrollbar-thumb{
-    height: 17%;
-    background-color: lightgrey;
-    /* 스크롤바 둥글게 설정    */
-    border-radius: 10px;    
+.ProjectsPage::-webkit-scrollbar-thumb {
+  height: 17%;
+  background-color: lightgrey;
+  /* 스크롤바 둥글게 설정    */
+  border-radius: 10px;
 }
 
 /* 스크롤바 뒷 배경 설정*/
-.ProjectsPage::-webkit-scrollbar-track{
-    background-color: rgba(0,0,0,0);
+.ProjectsPage::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0);
 }
 
-.addProjectBtn{
-	position: absolute;
-	color : white;
-	background-color: rgb(0,186,255);
-	z-index : 3;
-	top: 500px;
-	left : 310px;
-	border-radius : 5px;
-	border: none;
-	width : 30px;
-	height: 30px;
-	font-weight: bolder;
+.addProjectBtn {
+  position: absolute;
+  color: white;
+  background-color: rgb(0, 186, 255);
+  z-index: 3;
+  top: 500px;
+  left: 310px;
+  border-radius: 5px;
+  border: none;
+  width: 30px;
+  height: 30px;
+  font-weight: bolder;
 }
 
-Form{
-	text-align: left;
+Form {
+  text-align: left;
 }
 
-Label{
-	font-weight: bolder;
-	color: orangered;
-	padding: 5px;
-	margin-bottom: 0px!important;
-	margin-left: 5px;
-	font-size: large;
+Label {
+  font-weight: bolder;
+  color: orangered;
+  padding: 5px;
+  margin-bottom: 0px !important;
+  margin-left: 5px;
+  font-size: large;
+}
+
+.sprintElements {
+  height: 257px;
+  overflow: auto;
 }

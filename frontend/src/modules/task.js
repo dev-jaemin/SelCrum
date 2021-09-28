@@ -7,6 +7,7 @@ export const INSERT = "task/INSERT";
 export const MATCH = "task/MATCH";
 export const CONFIRM = "task/CONFIRM";
 export const API_INIT = "task/API_INIT";
+export const ADD_INIT = "task/ADD_INIT";
 
 let nextId = 1;
 
@@ -30,6 +31,10 @@ export const matchTaskWithSprint = (task_id, sprintId) => ({
 export const confirmTask = (id) => ({
   type: CONFIRM,
   id,
+});
+
+export const setInitTaskForAdd = () => ({
+  type: ADD_INIT,
 });
 
 export const setInitTask = (apiTasks) => ({
@@ -102,11 +107,19 @@ export default function task(state = initialState, action) {
     case CONFIRM:
       return produce(state, (draft) => {
         const selectedTask = draft.data.find((task) => task.id == action.id);
-        selectedTask.todo = 1;
+        selectedTask.todo = 2;
       });
     case API_INIT:
       return produce(state, (draft) => {
         draft.data = action.apiTasks;
+      });
+    case ADD_INIT:
+      return produce(state, (draft) => {
+        for (let t of draft.data) {
+          if (t.sprint_id === 1) {
+            t.sprint_id = 0;
+          }
+        }
       });
     default:
       return state;
