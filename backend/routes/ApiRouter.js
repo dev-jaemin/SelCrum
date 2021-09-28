@@ -99,6 +99,16 @@ router.get("/project/:projectId/task", async function (req, res, next) {
   }
 });
 
+//projectId가 있을 때 프로젝트의 task들 중 스프린트에 붙어있는 task를 응답하는 함수
+router.get("/project/:projectId/task/sprint", async function (req, res, next) {
+  try {
+    res.send(await ProjectService.getTasksWithSprint(req.params.projectId));
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 //sprintId가 있을 때 스프린트의 task들을 응답하는 함수
 router.get("/sprint/:sprintId/task", async function (req, res, next) {
   try {

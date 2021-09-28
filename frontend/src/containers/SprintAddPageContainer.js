@@ -96,8 +96,6 @@ function SprintAddPageContainer(props) {
       .post("http://localhost:4000/api/sprint", body)
       .then((res) => {
         history.goBack();
-        //제출했다면 select된 task들은 todo=2(하고있는중)이 됌. 디스패치가 아니라 디비에 저장해야할듯
-        dispatch(confirmTask(selectedTasks));
       })
       .catch((err) => {
         console.error(err);

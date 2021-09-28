@@ -16,46 +16,64 @@ function KanbanPageContainer({ match }, props) {
   const KanbanPageUrl = "/project/" + projectId + "/kanban";
   const SprintPageUrl = "/project/" + projectId + "/sprint";
   const apiUrl = "/api/project/" + projectId + "/task";
+  const urlForSprint = "/api/project/" + projectId + "/task/sprint";
 
   const tasks = useSelector((state) => state.task);
-  console.log(tasks);
+  const [selectedTasks, setSelectedTasks] = useState([]);
   const dispatch = useDispatch();
+
+  let todoTodo = [];
+  let doingTodo = [];
+  let doneTodo = [];
 
   useEffect(() => {
     axios
       .get(apiUrl)
       .then(function (response) {
         dispatch(setInitTask(response.data));
-        console.log(tasks);
+      })
+      .catch(function (err) {
+        console.error(err);
+      });
+
+    axios
+      .get(urlForSprint)
+      .then(function (response) {
+        setSelectedTasks(response.data);
       })
       .catch(function (err) {
         console.error(err);
       });
   }, []);
 
-  const todoTodo = tasks.data
-    .map((item, index) => {
-      if (item.project_id === projectId && item.todo === 1) {
-        return <Kanban task={item.task} />;
-      }
-    })
-    .filter((item) => item !== undefined);
+  if (selectedTasks.length > 0) {
+    doingTodo = selectedTasks
+      .map((item, index) => {
+        if (item.todo === 1) {
+          return <Kanban task={item.task} />;
+        }
+      })
+      .filter((item) => item !== undefined);
 
-  const doingTodo = tasks.data
-    .map((item, index) => {
-      if (item.project_id === projectId && item.todo === 2) {
-        return <Kanban task={item.task} />;
-      }
-    })
-    .filter((item) => item !== undefined);
+    doneTodo = selectedTasks
+      .map((item, index) => {
+        if (item.todo === 0) {
+          return <Kanban task={item.task} />;
+        }
+      })
+      .filter((item) => item !== undefined);
 
-  const doneTodo = tasks.data
-    .map((item, index) => {
-      if (item.project_id === projectId && item.todo === 3) {
-        return <Kanban task={item.task} />;
-      }
-    })
-    .filter((item) => item !== undefined);
+    const selectedTaskIdArray = selectedTasks.map((t) => t.task_id);
+
+    console.log(tasks);
+    todoTodo = tasks.data
+      .map((item, index) => {
+        if (!selectedTaskIdArray.includes(item.task_id)) {
+          return <Kanban task={item.task} />;
+        }
+      })
+      .filter((item) => item !== undefined);
+  }
 
   return (
     <KanbanPage
