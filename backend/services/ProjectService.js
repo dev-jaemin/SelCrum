@@ -69,12 +69,30 @@ ProjectService.addSprint = async (newSprint, tasks) => {
   return result[0].insertId;
 };
 
+ProjectService.updateSprint = async (sprintId, curSprint, tasks) => {
+  await getConnection("UPDATE sprints SET name=? WHERE sprint_id=?", [
+    curSprint.name,
+    sprintId,
+  ]);
+
+  //먼저 task_sprint에서 원래 저장되어 있는 열은 모두 삭제하고
+  await getConnection("DELETE FROM task_sprint WHERE sprint_id = ?", sprintId);
+  for (const tId of tasks) {
+    //받아온 taskId 마다 다시 넣어주기
+    await getConnection("INSERT INTO task_sprint set ?", {
+      task_id: tId,
+      sprint_id: sprintId,
+    });
+  }
+};
+
 //Task 관련 서비스
 ProjectService.getTasksByProjectId = async (projectId) => {
   let result = [];
 
   result = await getConnection(
-    "SELECT tasks.task_id, tasks.project_id, tasks.task, tasks.todo, task_sprint.sprint_id FROM tasks LEFT OUTER JOIN task_sprint ON tasks.task_id = task_sprint.task_id WHERE project_id=?",
+    //"SELECT tasks.task_id, tasks.project_id, tasks.task, tasks.todo, task_sprint.sprint_id FROM tasks LEFT OUTER JOIN task_sprint ON tasks.task_id = task_sprint.task_id WHERE project_id=?",
+    "SELECT * FROM tasks WHERE project_id = ?",
     projectId
   );
 
@@ -86,6 +104,17 @@ ProjectService.getTasksWithSprint = async (projectId) => {
 
   result = await getConnection(
     "SELECT DISTINCT task_id, task, todo FROM tasks NATURAL JOIN task_sprint NATURAL JOIN sprints WHERE project_id=?;",
+    projectId
+  );
+
+  return result[0];
+};
+
+ProjectService.getTaskSprintBySprintId = async (projectId) => {
+  let result = [];
+
+  result = await getConnection(
+    "SELECT task_id, sprint_id FROM task_sprint natural join sprints WHERE project_id=?",
     projectId
   );
 

@@ -79,9 +79,31 @@ router.post("/sprint", async function (req, res, next) {
     project_id: req.body.project_id,
     end_date: req.body.end_date,
   };
-  console.log(req.body.tasks);
+
   try {
     await ProjectService.addSprint(newSprint, req.body.tasks);
+    res.status(200);
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+//스프린트 정보 업데이트
+//기존에 task_sprint로 연결되어있는거 싹 지우고 다시 insert하면 됌
+router.put("/sprint", async function (req, res, next) {
+  let curSprint = {
+    name: req.body.name,
+    //project_id: req.body.project_id,
+    //end_date: req.body.end_date,
+  };
+
+  try {
+    await ProjectService.updateSprint(
+      req.body.sprint_id,
+      curSprint,
+      req.body.tasks
+    );
     res.status(200);
   } catch (err) {
     console.error(err);
@@ -103,6 +125,18 @@ router.get("/project/:projectId/task", async function (req, res, next) {
 router.get("/project/:projectId/task/sprint", async function (req, res, next) {
   try {
     res.send(await ProjectService.getTasksWithSprint(req.params.projectId));
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
+//task_sprint 객체를 응답하는 함수
+router.get("/project/:projectId/task_sprint", async function (req, res, next) {
+  try {
+    res.send(
+      await ProjectService.getTaskSprintBySprintId(req.params.projectId)
+    );
   } catch (err) {
     console.error(err);
     next(err);
