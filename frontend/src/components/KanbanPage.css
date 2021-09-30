@@ -1,49 +1,61 @@
-.KanbanPage{
-	height: 490px;
-	overflow: auto;
-	padding: 5px;
+.KanbanPage {
+  height: 490px;
+  overflow: auto;
+  padding: 5px;
 }
 
-h4{
-	clear: both;
-	color: orangered;
-	font-weight: 800;
+h4 {
+  clear: both;
+  color: orangered;
+  font-weight: 800;
 }
-
 
 /* 스크롤바 설정*/
-.KanbanPage::-webkit-scrollbar{
-    width: 6px;
+.KanbanPage::-webkit-scrollbar {
+  width: 6px;
 }
 
 /* 스크롤바 막대 설정*/
-.KanbanPage::-webkit-scrollbar-thumb{
-    height: 17%;
-    background-color: lightgrey;
-    /* 스크롤바 둥글게 설정    */
-    border-radius: 10px;    
+.KanbanPage::-webkit-scrollbar-thumb {
+  height: 17%;
+  background-color: lightgrey;
+  /* 스크롤바 둥글게 설정    */
+  border-radius: 10px;
 }
 
 /* 스크롤바 뒷 배경 설정*/
-.KanbanPage::-webkit-scrollbar-track{
-    background-color: rgba(0,0,0,0);
+.KanbanPage::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0);
 }
 
-.SprintPageNav{
-	clear: left;
-	background-color: white;
+.SprintPageNav {
+  clear: left;
+  background-color: white;
 }
 
-.nav-link{
-	color: orangered;
-	font-weight: 700;
-	width: 170px;
-	text-align: center;
+.nav-link {
+  color: orangered;
+  font-weight: 700;
+  width: 170px;
+  text-align: center;
 }
 
-
-
-.nav-link.active{
-	background-color: orangered!important;
+.nav-link.active {
+  background-color: orangered !important;
 }
 
+.addTaskBtn2 {
+  display: inline-block;
+  height: 2rem;
+  background-color: rgb(0, 186, 255);
+  color: white;
+  font-weight: 600;
+  border-style: none;
+}
+
+.kanbanInput {
+  width: 85%;
+  margin-right: 0px;
+  display: inline-block;
+  height: 2rem;
+}

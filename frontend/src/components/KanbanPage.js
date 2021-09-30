@@ -1,7 +1,7 @@
 import "./KanbanPage.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Nav } from "react-bootstrap";
+import { Nav, Form } from "react-bootstrap";
 
 import KanbanEmpty from "./KanbanEmpty";
 
@@ -9,9 +9,26 @@ import KanbanEmpty from "./KanbanEmpty";
 //api통신할 때 componentDidMount 적당히 활용할 것
 
 function KanbanPage(props) {
-  console.log(props.todoTodo);
   return (
     <div className="KanbanPage">
+      <Form onSubmit={props.submitHandler}>
+        <Form.Group className="mb-3" controlId="formBasicEmail">
+          <Form.Control
+            type="text"
+            onChange={props.curTaskHandler}
+            value={props.curTask}
+            placeholder="할 일을 추가하세요"
+            size="10"
+            className="kanbanInput"
+          />
+          <input
+            type="submit"
+            className="addTaskBtn2"
+            variant="primary"
+            value="추가"
+          />
+        </Form.Group>
+      </Form>
       <h4>해야 해요</h4>
       <div className="board todo">
         {props.todoTodo.length ? props.todoTodo : <KanbanEmpty />}

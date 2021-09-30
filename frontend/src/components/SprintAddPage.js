@@ -4,6 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Button } from "react-bootstrap";
 
 function SprintAddPage(props) {
+  /*
   const taskLi = props.tasks.data.map((item, index) => {
     if (item.sprint_id == props.newId) {
       return (
@@ -12,19 +13,23 @@ function SprintAddPage(props) {
         </li>
       );
     }
-  });
+  });*/
 
   return (
     <div className="SprintInfoPage">
       <Form onSubmit={props.submitHandler}>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <h4>스프린트 이름</h4>
-          <Form.Control type="text" onChange={props.nameHandler} />
+          <Form.Control
+            type="text"
+            onChange={props.nameHandler}
+            placeholder="#주차"
+          />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicGoal">
           <h4>해야할 일</h4>
-          <ul>{taskLi}</ul>
+          <ul>{props.taskLi}</ul>
           <input
             type="button"
             className="addTaskBtn"
@@ -33,7 +38,7 @@ function SprintAddPage(props) {
             onClick={props.addTaskHandler}
           />
         </Form.Group>
-
+        {/*
         <Form.Group className="mb-3" controlId="formBasicDeadline">
           <h4>마감일</h4>
           <Form.Control
@@ -42,6 +47,7 @@ function SprintAddPage(props) {
             onChange={props.deadlineHandler}
           />
         </Form.Group>
+        */}
 
         <input
           type="button"

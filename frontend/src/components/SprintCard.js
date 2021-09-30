@@ -8,9 +8,11 @@ function SprintCard(props) {
   //tasks 상태관리는 여기서
   const [tasks, setTasks] = useState([]);
 
-  const taskElement = props.tasks.map((item, index) => {
-    return <small className="text-muted">{item.task} </small>;
-  });
+  const taskElement =
+    props.tasks &&
+    props.tasks.map((item, index) => {
+      return <small className="text-muted">{item.task} </small>;
+    });
 
   //history state에 함수는 못 넣음 수정바람
   return (

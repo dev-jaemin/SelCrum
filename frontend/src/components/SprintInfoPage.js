@@ -1,14 +1,21 @@
 import "./SprintInfoPage.css";
+import moment from "moment";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Button } from "react-bootstrap";
 
 function SprintInfoPage(props) {
+  /*
+  console.log(props.tasks);
   const taskLi = props.tasks.data.map((item, index) => {
     if (item.sprint_id == props.sprintObj.sprint_id) {
-      return <li>{item.task} </li>;
+      return (
+        <li onClick={props.removeTaskHandler} id={item.task_id}>
+          {item.task}{" "}
+        </li>
+      );
     }
-  });
+  });*/
 
   return (
     <div className="SprintInfoPage">
@@ -17,17 +24,14 @@ function SprintInfoPage(props) {
           <h4>스프린트 이름</h4>
           <Form.Control
             type="text"
-            placeholder={props.sprintObj.name}
             onChange={props.nameHandler}
+            value={props.sprintObj.name}
           />
-          <Form.Label className="date">
-            {props.sprintObj.start_date} ~ {props.sprintObj.end_date}
-          </Form.Label>
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicGoal">
           <h4>해야할 일</h4>
-          <ul>{taskLi}</ul>
+          <ul>{props.taskLi}</ul>
           <input
             type="button"
             className="addTaskBtn"
@@ -36,6 +40,17 @@ function SprintInfoPage(props) {
             onClick={props.addTaskHandler}
           />
         </Form.Group>
+
+        {/*
+        <Form.Group className="mb-3" controlId="formBasicDeadline">
+          <h4>마감일</h4>
+          <Form.Control
+            type="date"
+            value={props.sprintObj.end_date}
+            onChange={props.deadlineHandler}
+          />
+        </Form.Group>
+*/}
 
         <input
           type="button"

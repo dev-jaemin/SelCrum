@@ -3,22 +3,32 @@ import axios from "axios";
 import { Route } from "react-router-dom";
 
 import { useSelector, useDispatch } from "react-redux";
-import { setInitTask } from "../modules/task";
+import { setInitTask } from "../modules/tasks";
 
 import ProjectInfoPage from "../components/ProjectInfoPage";
 import SprintCard from "../components/SprintCard";
+import { setInitSprintTaskArr } from "../modules/sprintTaskArr";
+import { current } from "immer";
 
 //https://darrengwon.tistory.com/337
-
+/*
 const api = async (url, setState) => {
   const { data: result } = await axios(url);
   setState(result);
+  console.log("시발련");
 };
 
 const apiTask = async (url, dispatch) => {
   const { data: result } = await axios(url);
-  dispatch(setInitTask(result));
+  await dispatch(setInitTask(result));
 };
+
+const apiSprintTask = async (url, sprints, dispatch) => {
+  const { data: result } = await axios(url);
+  await dispatch(setInitSprintTaskArr(sprints, result));
+  console.log(sprints);
+};
+*/
 
 function ProjectInfoPageContainer(props) {
   const projectId = parseInt(props.match.params.projectId);
@@ -29,18 +39,27 @@ function ProjectInfoPageContainer(props) {
   const SprintPageUrl = "/project/" + projectId + "/sprint";
 
   const apiUrlForPrj = "/api/project/" + projectId;
-  //const apiUrlForTasks = "/api/project/" + projectId + "/task";
+  const apiUrlForTasks = "/api/project/" + projectId + "/task";
   const apiUrlForSpr = "/api/project/" + projectId + "/sprint";
+  const apiUrlForTaskSpr = "/api/project/" + projectId + "/task_sprint";
+  const dispatch = useDispatch();
 
-  const tasks = useSelector((state) => state.task);
-  console.log(tasks);
-  //const dispatch = useDispatch();
+  const tasks = useSelector((state) => state.tasks);
+  const sprintTaskArr = useSelector((state) => state.sprintTaskArr);
 
   useEffect(() => {
     async function fetchData() {
-      api(apiUrlForPrj, setCurrentProject);
-      //apiTask(apiUrlForTasks, dispatch);
-      api(apiUrlForSpr, setSprints);
+      const { data: p } = await axios(apiUrlForPrj);
+      const { data: s } = await axios(apiUrlForSpr);
+      const { data: t } = await axios(apiUrlForTasks);
+      const { data: ts } = await axios(apiUrlForTaskSpr);
+
+      //useState()는 동기적으로 실행되는 것이 아니라, (성능 문제로) 기다렸다가 동시에 업데이트한다. 따라서 useState()뒤에 console.log를 찍거나 state값으로 계산할 수 없다!!!
+      dispatch(setInitTask(t));
+      dispatch(setInitSprintTaskArr(s, ts));
+
+      setCurrentProject(p);
+      setSprints(s);
     }
     fetchData();
   }, []);
@@ -49,8 +68,16 @@ function ProjectInfoPageContainer(props) {
     props.history.push("/" + projectId + "/sprint/postpage/page");
   };
 
-  let sprintElements = [];
+  const taskById = (task_id) => {
+    for (let t of tasks.data) {
+      if (t.task_id === task_id) return t.task;
+    }
 
+    return null;
+  };
+
+  let sprintElements = [];
+  /*
   if (sprints !== undefined) {
     sprintElements = sprints.map((item, index) => {
       const filteredTask = tasks.data.filter(
@@ -61,6 +88,24 @@ function ProjectInfoPageContainer(props) {
 
       return (
         <SprintCard id={item.sprint_id} name={item.name} tasks={filteredTask} />
+      );
+    });
+  }*/
+
+  if (sprints.length > 0) {
+    sprintElements = sprints.map((element) => {
+      const filteredTask =
+        sprintTaskArr[element.sprint_id] &&
+        sprintTaskArr[element.sprint_id].map((element) => {
+          return { task_id: element, task: taskById(element) };
+        });
+
+      return (
+        <SprintCard
+          id={element.sprint_id}
+          name={element.name}
+          tasks={filteredTask}
+        />
       );
     });
   }

@@ -132,4 +132,8 @@ ProjectService.getTasksBySprintId = async (sprintId) => {
   return result[0];
 };
 
+ProjectService.addTask = async (newTask) => {
+  return await getConnection("INSERT INTO tasks set ?", newTask);
+};
+
 export default ProjectService;

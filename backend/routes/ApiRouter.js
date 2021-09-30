@@ -153,4 +153,19 @@ router.get("/sprint/:sprintId/task", async function (req, res, next) {
   }
 });
 
+//새 task 추가
+router.post("/task", async function (req, res, next) {
+  let newTask = {
+    project_id: req.body.projectId,
+    task: req.body.task,
+  };
+
+  try {
+    res.send(await ProjectService.addTask(newTask));
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 export default router;

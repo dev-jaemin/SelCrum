@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { setInitTask } from "../modules/task";
+import { insertTask, setInitTask } from "../modules/tasks";
 
 import KanbanPage from "../components/KanbanPage";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -17,8 +17,11 @@ function KanbanPageContainer({ match }, props) {
   const SprintPageUrl = "/project/" + projectId + "/sprint";
   const apiUrl = "/api/project/" + projectId + "/task";
   const urlForSprint = "/api/project/" + projectId + "/task/sprint";
+  const urlForTask = "/api/task";
 
-  const tasks = useSelector((state) => state.task);
+  const [curTask, setCurTask] = useState("");
+
+  const tasks = useSelector((state) => state.tasks);
   const [selectedTasks, setSelectedTasks] = useState([]);
   const dispatch = useDispatch();
 
@@ -46,6 +49,31 @@ function KanbanPageContainer({ match }, props) {
       });
   }, []);
 
+  const curTaskHandler = (e) => {
+    e.preventDefault();
+
+    setCurTask(e.target.value);
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+
+    const t = {
+      projectId: projectId,
+      task: curTask,
+    };
+
+    axios
+      .post(urlForTask, t)
+      .then((response) => {
+        dispatch(insertTask(projectId, response.data[0].insertId, curTask));
+        setCurTask("");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  };
+
   if (selectedTasks.length > 0) {
     doingTodo = selectedTasks
       .map((item, index) => {
@@ -65,7 +93,6 @@ function KanbanPageContainer({ match }, props) {
 
     const selectedTaskIdArray = selectedTasks.map((t) => t.task_id);
 
-    console.log(tasks);
     todoTodo = tasks.data
       .map((item, index) => {
         if (!selectedTaskIdArray.includes(item.task_id)) {
@@ -82,6 +109,9 @@ function KanbanPageContainer({ match }, props) {
       doneTodo={doneTodo}
       KanbanPageUrl={KanbanPageUrl}
       SprintPageUrl={SprintPageUrl}
+      curTask={curTask}
+      curTaskHandler={curTaskHandler}
+      submitHandler={submitHandler}
     />
   );
 }
