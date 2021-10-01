@@ -74,8 +74,10 @@ function KanbanPageContainer({ match }, props) {
       });
   };
 
-  if (selectedTasks.length > 0) {
-    doingTodo = selectedTasks
+  //if (selectedTasks.length > 0) {
+  doingTodo =
+    selectedTasks &&
+    selectedTasks
       .map((item, index) => {
         if (item.todo === 1) {
           return <Kanban task={item.task} />;
@@ -83,7 +85,9 @@ function KanbanPageContainer({ match }, props) {
       })
       .filter((item) => item !== undefined);
 
-    doneTodo = selectedTasks
+  doneTodo =
+    selectedTasks &&
+    selectedTasks
       .map((item, index) => {
         if (item.todo === 0) {
           return <Kanban task={item.task} />;
@@ -91,16 +95,17 @@ function KanbanPageContainer({ match }, props) {
       })
       .filter((item) => item !== undefined);
 
-    const selectedTaskIdArray = selectedTasks.map((t) => t.task_id);
+  const selectedTaskIdArray =
+    selectedTasks && selectedTasks.map((t) => t.task_id);
 
-    todoTodo = tasks.data
-      .map((item, index) => {
-        if (!selectedTaskIdArray.includes(item.task_id)) {
-          return <Kanban task={item.task} />;
-        }
-      })
-      .filter((item) => item !== undefined);
-  }
+  todoTodo = tasks.data
+    .map((item, index) => {
+      if (!selectedTaskIdArray.includes(item.task_id)) {
+        return <Kanban task={item.task} />;
+      }
+    })
+    .filter((item) => item !== undefined);
+  //}
 
   return (
     <KanbanPage
