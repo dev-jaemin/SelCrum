@@ -2,6 +2,7 @@ import React, { useState } from "react";
 
 import { Route } from "react-router-dom";
 import LoginPage from "../components/LoginPage";
+import axios from "axios";
 
 function LoginPageContainer(props) {
   const [id, setId] = useState("");
@@ -26,11 +27,9 @@ function LoginPageContainer(props) {
       password: password,
     };
 
-    /*
-    	axios
-      	.post("http://localhost:5000/api/projects", body)
-      	.then((res) => console.log(res));
-		*/
+    axios
+      .post("http://localhost:4000/api/projects", body)
+      .then((res) => console.log(res));
   };
 
   return (

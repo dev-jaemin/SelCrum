@@ -5,7 +5,7 @@ import produce from "immer";
 // 액션이름 앞에 파일 이름을 넣습니다.
 export const INSERT = "tasks/INSERT";
 export const MATCH = "tasks/MATCH";
-export const CONFIRM = "tasks/CONFIRM";
+export const SWITCH = "tasks/SWITCH";
 export const API_INIT = "tasks/API_INIT";
 export const ADD_INIT = "tasks/ADD_INIT";
 
@@ -27,9 +27,9 @@ export const matchTaskWithSprint = (task_id, sprintId) => ({
   sprintId,
 });
 
-export const confirmTask = (id) => ({
-  type: CONFIRM,
-  id,
+export const switchTask = (task_id) => ({
+  type: SWITCH,
+  task_id,
 });
 
 export const setInitTaskForAdd = () => ({
@@ -98,10 +98,13 @@ export default function tasks(state = initialState, action) {
 
         selectedTask.sprint_id = parseInt(action.sprintId);
       });
-    case CONFIRM:
+    case SWITCH:
       return produce(state, (draft) => {
-        const selectedTask = draft.data.find((task) => task.id == action.id);
-        selectedTask.todo = 2;
+        const selectedTask = draft.data.find(
+          (t) => t.task_id === parseInt(action.task_id)
+        );
+        if (selectedTask.todo === 1) selectedTask.todo = 0;
+        else selectedTask.todo = 1;
       });
     case API_INIT:
       return produce(state, (draft) => {

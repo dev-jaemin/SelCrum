@@ -19,7 +19,7 @@ function SprintInfoPage(props) {
 
   return (
     <div className="SprintInfoPage">
-      <Form onSubmit={props.submitHandler}>
+      <Form onSubmit={props.submitHandler} className="infoForm">
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <h4>스프린트 이름</h4>
           <Form.Control
@@ -31,7 +31,7 @@ function SprintInfoPage(props) {
 
         <Form.Group className="mb-3" controlId="formBasicGoal">
           <h4>해야할 일</h4>
-          <ul>{props.taskLi}</ul>
+          <ul>{props.doingTaskLi}</ul>
           <input
             type="button"
             className="addTaskBtn"
@@ -39,6 +39,11 @@ function SprintInfoPage(props) {
             disabled={props.btnState}
             onClick={props.addTaskHandler}
           />
+        </Form.Group>
+
+        <Form.Group className="mb-3" controlId="formBasicGoal">
+          <h4>다했어요</h4>
+          <ul>{props.doneTaskLi}</ul>
         </Form.Group>
 
         {/*
@@ -51,16 +56,15 @@ function SprintInfoPage(props) {
           />
         </Form.Group>
 */}
-
-        <input
-          type="button"
-          className="postBtn"
-          variant="primary"
-          value="저장"
-          disabled={props.btnState}
-          onClick={props.submitHandler}
-        />
       </Form>
+      <input
+        type="button"
+        className="postBtn"
+        variant="primary"
+        value="저장"
+        disabled={props.btnState}
+        onClick={props.submitHandler}
+      />
     </div>
   );
 }

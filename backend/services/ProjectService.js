@@ -77,12 +77,16 @@ ProjectService.updateSprint = async (sprintId, curSprint, tasks) => {
 
   //먼저 task_sprint에서 원래 저장되어 있는 열은 모두 삭제하고
   await getConnection("DELETE FROM task_sprint WHERE sprint_id = ?", sprintId);
-  for (const tId of tasks) {
+  for (const t of tasks) {
     //받아온 taskId 마다 다시 넣어주기
     await getConnection("INSERT INTO task_sprint set ?", {
-      task_id: tId,
+      task_id: t.task_id,
       sprint_id: sprintId,
     });
+    await getConnection("UPDATE tasks SET todo=? WHERE task_id=?", [
+      t.todo,
+      t.task_id,
+    ]);
   }
 };
 

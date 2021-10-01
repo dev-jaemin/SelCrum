@@ -2,7 +2,11 @@ import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
 import { Route, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { matchTaskWithSprint, setInitTaskForAdd } from "../modules/tasks";
+import {
+  matchTaskWithSprint,
+  setInitTaskForAdd,
+  switchTask,
+} from "../modules/tasks";
 import {
   matchTask_Sprint,
   removeTask,
@@ -10,7 +14,7 @@ import {
 } from "../modules/sprintTaskArr";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-import { ListGroup } from "react-bootstrap";
+import { CloseButton, ListGroup, Button } from "react-bootstrap";
 
 import SprintInfoPage from "../components/SprintInfoPage";
 import TaskList from "../components/TaskList";
@@ -97,7 +101,7 @@ function SprintInfoPageContainer(props) {
     //sprint=0 -> 아직 스프린트에 적용되지 않았다.
     //dispatch(matchTaskWithSprint(e.target.id, 0));
     //setSelectedTasks(selectedTasks.filter((item) => item !== e.target.id));
-    dispatch(removeTask(curId, parseInt(e.target.id)));
+    dispatch(removeTask(curId, parseInt(e.target.parentElement.id)));
   };
 
   const taskHandler = (e) => {
@@ -111,16 +115,27 @@ function SprintInfoPageContainer(props) {
     taskListRef.current.style = "display:none";
   };
 
+  //doing은 done으로, done은 doing으로
+  const switchHandler = (e) => {
+    e.preventDefault();
+
+    console.log(e.target.parentElement.id);
+    dispatch(switchTask(e.target.parentElement.id));
+  };
+
   const history = useHistory();
 
   const submitHandler = (e) => {
     e.preventDefault();
 
-    // state에 저장한 값을 가져옵니다.
+    const taskArr = sprintTaskArr[curId].map((element) => {
+      return taskById(element);
+    });
     let body = {
       sprint_id: curId,
       name: sprintObj.name,
-      tasks: sprintTaskArr[curId],
+      //tasks: sprintTaskArr[curId],
+      tasks: taskArr,
       project_id: props.match.params.projectId,
       //end_date: sprintObj.end_date,
     };
@@ -164,14 +179,15 @@ function SprintInfoPageContainer(props) {
 
   const taskById = (task_id) => {
     for (let t of tasks.data) {
-      if (t.task_id === task_id) return t.task;
+      if (t.task_id === task_id) return t;
     }
 
     return null;
   };
 
   let tasksNotInSprint = [];
-  let taskLi = [];
+  let doingTaskLi = [];
+  let doneTaskLi = [];
   if (sprintTaskArr[curId] !== undefined) {
     tasksNotInSprint = tasks.data.map((element) => {
       if (!sprintTaskArr[curId].includes(element.task_id)) {
@@ -191,12 +207,31 @@ function SprintInfoPageContainer(props) {
       sprintTaskArr[curId] !== undefined &&
       sprintTaskArr[curId].length !== 0
     ) {
-      taskLi = sprintTaskArr[curId].map((item, index) => {
-        return (
-          <li onClick={removeTaskHandler} id={item}>
-            {taskById(item)}{" "}
-          </li>
-        );
+      doingTaskLi = sprintTaskArr[curId].map((item, index) => {
+        if (taskById(item).todo === 1) {
+          return (
+            <li id={item}>
+              <span onClick={switchHandler}>{taskById(item).task}</span>
+              <Button
+                onClick={removeTaskHandler}
+                className="taksRemoveBtn"
+                variant="outline-danger"
+              >
+                X
+              </Button>
+            </li>
+          );
+        }
+      });
+
+      doneTaskLi = sprintTaskArr[curId].map((item, index) => {
+        if (taskById(item).todo === 0) {
+          return (
+            <li id={item}>
+              <span onClick={switchHandler}>{taskById(item).task}</span>
+            </li>
+          );
+        }
       });
     }
   }
@@ -208,7 +243,8 @@ function SprintInfoPageContainer(props) {
         nameHandler={nameHandler}
         addTaskHandler={addTaskHandler}
         tasks={tasks}
-        taskLi={taskLi}
+        doingTaskLi={doingTaskLi}
+        doneTaskLi={doneTaskLi}
         btnState={btnState}
         sprintObj={sprintObj}
         deadline={deadline}

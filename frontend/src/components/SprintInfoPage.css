@@ -1,25 +1,54 @@
-.SprintInfoPage{
-	height: 490px;
-	padding: 10px;
+.SprintInfoPage {
+  height: 490px;
+  padding: 10px;
 }
 
-.postBtn{
-	position: absolute;
-	color : white;
-	background-color: rgb(0,186,255);
-	z-index : 3;
-	top: 420px;
-	left : 120px;
-	width: 120px;
-	font-weight: bolder;
+.postBtn {
+  position: absolute;
+  color: white;
+  background-color: rgb(0, 186, 255);
+  z-index: 3;
+  top: 480px;
+  left: 120px;
+  width: 120px;
+  font-weight: bolder;
 }
 
-.addTaskBtn{
-	float: right;
-	margin-top: -20px;
+.addTaskBtn {
+  float: right;
+  margin-top: -20px;
 }
 
-li{
-	
-	font-weight: 700;
+.infoForm {
+  height: 25rem;
+  overflow: auto;
+}
+
+.taksRemoveBtn {
+  background-color: white;
+  height: 28px;
+  margin: 5px;
+  padding: 0px 6px;
+}
+
+li {
+  font-weight: 700;
+}
+
+/* 스크롤바 설정*/
+.infoForm::-webkit-scrollbar {
+  width: 6px;
+}
+
+/* 스크롤바 막대 설정*/
+.infoForm::-webkit-scrollbar-thumb {
+  height: 17%;
+  background-color: lightgrey;
+  /* 스크롤바 둥글게 설정    */
+  border-radius: 10px;
+}
+
+/* 스크롤바 뒷 배경 설정*/
+.infoForm::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0);
 }

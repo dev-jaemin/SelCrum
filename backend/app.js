@@ -9,6 +9,9 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import ejs from "ejs";
 import cors from "cors";
+//for login
+import passport from "passport";
+import passportConfig from "./passport";
 
 const app = express();
 const port = 4000;
@@ -47,6 +50,10 @@ app.use(cors());
 //옛날엔 body-parser 모듈 썼는데 이젠 express 내장 객체되어서 req.body 내용 파싱할 때 이렇게 설정하면 됌.
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+//passport 모듈
+app.use(passport.initialize());
+passportConfig();
 
 app.use("/", MainRouter);
 app.use("/login", LoginRouter);
