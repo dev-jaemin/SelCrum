@@ -3,7 +3,12 @@ import axios from "axios";
 import { Route, useHistory } from "react-router-dom";
 
 import ProjectAddPage from "../components/ProjectAddPage";
-import { propTypes } from "react-bootstrap/esm/Image";
+
+//아무리해도 서버에서 쿠키로 Auth검증하는 것이 되지않아 임시로 이렇게 처리
+import { Cookies } from "react-cookie";
+const cookies = new Cookies();
+axios.defaults.headers.common["Authorization"] =
+  `Bearer ` + cookies.get("token");
 
 //https://darrengwon.tistory.com/337
 

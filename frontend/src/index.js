@@ -15,6 +15,10 @@ import rootReducer from "./modules";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
+import axios from "axios";
+
+//axios.defaults.withCredentials = true;
+
 // 배포 레벨에서는 리덕스 발동시 찍히는 logger를 사용하지 않습니다.
 const enhancer =
   process.env.NODE_ENV === "production"

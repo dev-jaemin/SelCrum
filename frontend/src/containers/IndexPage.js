@@ -10,17 +10,16 @@ import SprintAddPageContainer from "./SprintAddPageContainer";
 import SprintInfoPageContainer from "./SprintInfoPageContainer";
 import LoginPageContainer from "./LoginPageContainer";
 import MorePageContainer from "./MorePageContainer";
+import SignupPageContainer from "./SignupPageContainer";
 import { Route } from "react-router-dom";
 
 function IndexPage() {
-  //개발용 예시 로그인
-  window.localStorage.setItem("userId", "test1");
-
   return (
     <div className="IndexPage">
       <Route path="/" component={Header} />
-      <Route path="/" component={ProjectsPageContainer} exact />
+      <Route path="/" component={LoginPageContainer} exact />
       <Route path="/login" component={LoginPageContainer} exact />
+      <Route path="/login/sign_up" component={SignupPageContainer} exact />
       <Route path="/project/doing" component={ProjectsPageContainer} exact />
       <Route
         path="/project/done"

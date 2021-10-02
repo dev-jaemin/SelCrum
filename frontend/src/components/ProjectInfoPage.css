@@ -1,45 +1,51 @@
-.ProjectInfoPage{
-	height: 490px;
-	overflow: auto;
-	padding: 5px;
-	text-align: left;
+.ProjectInfoPage {
+  height: 490px;
+  overflow: auto;
+  padding: 5px;
+  text-align: left;
 }
 
 /* 스크롤바 설정*/
-.ProjectInfoPage::-webkit-scrollbar{
-    width: 6px;
+.ProjectInfoPage::-webkit-scrollbar {
+  width: 6px;
 }
 
 /* 스크롤바 막대 설정*/
-.ProjectInfoPage::-webkit-scrollbar-thumb{
-    height: 17%;
-    background-color: lightgrey;
-    /* 스크롤바 둥글게 설정    */
-    border-radius: 10px;    
+.ProjectInfoPage::-webkit-scrollbar-thumb {
+  height: 17%;
+  background-color: lightgrey;
+  /* 스크롤바 둥글게 설정    */
+  border-radius: 10px;
 }
 
 /* 스크롤바 뒷 배경 설정*/
-.ProjectInfoPage::-webkit-scrollbar-track{
-    background-color: rgba(0,0,0,0);
+.ProjectInfoPage::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, 0);
 }
 
-.color_blue{
-	color: rgb(0,186,255);
+.color_blue {
+  color: rgb(0, 186, 255);
 }
 
-.addSprintBtn{
-	position: absolute;
-	color : white;
-	background-color: rgb(0,186,255);
-	z-index : 3;
-	top: 500px;
-	left : 300px;
-	width: 30px;
-	height: 30px;
-	padding: 0px;
-	font-weight: bolder;
+.addSprintBtn {
+  position: absolute;
+  color: white;
+  background-color: rgb(0, 186, 255);
+  z-index: 3;
+  top: 500px;
+  left: 300px;
+  width: 30px;
+  height: 30px;
+  padding: 0px;
+  font-weight: bolder;
 }
 
-.date{
-	color: grey;
+.date {
+  color: grey;
+}
+
+.completeBtn {
+  float: right;
+  font-weight: 600;
+  margin: 0.5rem;
 }

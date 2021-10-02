@@ -8,14 +8,17 @@ import { setInitTask } from "../modules/tasks";
 import ProjectInfoPage from "../components/ProjectInfoPage";
 import SprintCard from "../components/SprintCard";
 import { setInitSprintTaskArr } from "../modules/sprintTaskArr";
-import { current } from "immer";
 
-//https://darrengwon.tistory.com/337
+//아무리해도 서버에서 쿠키로 Auth검증하는 것이 되지않아 임시로 이렇게 처리
+import { Cookies } from "react-cookie";
+const cookies = new Cookies();
+axios.defaults.headers.common["Authorization"] =
+  `Bearer ` + cookies.get("token");
+
 /*
 const api = async (url, setState) => {
   const { data: result } = await axios(url);
   setState(result);
-  console.log("시발련");
 };
 
 const apiTask = async (url, dispatch) => {
@@ -42,6 +45,7 @@ function ProjectInfoPageContainer(props) {
   const apiUrlForTasks = "/api/project/" + projectId + "/task";
   const apiUrlForSpr = "/api/project/" + projectId + "/sprint";
   const apiUrlForTaskSpr = "/api/project/" + projectId + "/task_sprint";
+  const apiUrlForComplete = "/api/project/" + projectId + "/complete";
   const dispatch = useDispatch();
 
   const tasks = useSelector((state) => state.tasks);
@@ -64,8 +68,24 @@ function ProjectInfoPageContainer(props) {
     fetchData();
   }, []);
 
+  //handler
   const addHandler = () => {
     props.history.push("/" + projectId + "/sprint/postpage/page");
+  };
+
+  const completeHandler = () => {
+    const flag = window.confirm("프로젝트 잘 마무리하셨나요?");
+
+    if (flag) {
+      window.alert("축하합니다! 당신은 멋진 사람입니다.");
+
+      axios
+        .put(apiUrlForComplete)
+        .then(() => {})
+        .catch((err) => console.error(err));
+
+      props.history.push("/project/done");
+    }
   };
 
   const taskById = (task_id) => {
@@ -119,6 +139,7 @@ function ProjectInfoPageContainer(props) {
       project={currentProject[0]}
       sprintElements={sprintElements}
       addHandler={addHandler}
+      completeHandler={completeHandler}
     />
   );
 }

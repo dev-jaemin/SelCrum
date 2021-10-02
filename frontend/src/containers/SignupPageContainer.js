@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 
 import { Route } from "react-router-dom";
-import LoginPage from "../components/LoginPage";
+import SignupPage from "../components/SignupPage";
 import axios from "axios";
 import { Cookies } from "react-cookie";
 
 const cookies = new Cookies();
 
-function LoginPageContainer(props) {
+function SignupPageContainer(props) {
   useEffect(() => {
-    //일단 로그인 페이지로 접속시키고, 이미 인증되어 있는거면 바로 메인화면으로 돌리기
+    //로그인 되어있는지 확인하고, 되어있으면 회원가입 시키면 안됌.
     if (window.localStorage.getItem("userId")) {
       axios.get("http://127.0.0.1:4000/login").then((res) => {
         if (res.data === "success") {
@@ -21,6 +21,7 @@ function LoginPageContainer(props) {
 
   const [id, setId] = useState("");
   const [password, setPassword] = useState("");
+  const [checkPassword, setCheckPassword] = useState("");
 
   const idHandler = (e) => {
     e.preventDefault();
@@ -32,32 +33,39 @@ function LoginPageContainer(props) {
     setPassword(e.target.value);
   };
 
+  const checkPasswordHandler = (e) => {
+    e.preventDefault();
+    setCheckPassword(e.target.value);
+  };
+
   const submitHandler = (e) => {
     e.preventDefault();
     // state에 저장한 값을 가져옵니다.
+
+    if (password !== checkPassword) {
+      window.alert("비밀번호가 일치하지 않습니다.");
+      return;
+    }
 
     let body = {
       user_id: id,
       pw: password,
     };
 
-    axios.post("http://localhost:4000/login", body).then((response) => {
-      const { token } = response.data;
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      cookies.set("token", token);
-      window.localStorage.setItem("userId", body.user_id);
-
-      props.history.push("/project/doing");
+    axios.post("http://localhost:4000/login/sign_up", body).then((response) => {
+      window.alert("회원가입되셨습니다.");
+      props.history.push("/login");
     });
   };
 
   return (
-    <LoginPage
+    <SignupPage
       idHandler={idHandler}
       passwordHandler={passwordHandler}
+      checkPasswordHandler={checkPasswordHandler}
       submitHandler={submitHandler}
     />
   );
 }
 
-export default LoginPageContainer;
+export default SignupPageContainer;

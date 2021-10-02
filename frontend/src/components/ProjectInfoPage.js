@@ -7,6 +7,13 @@ import { Button, Nav } from "react-bootstrap";
 function ProjectInfoPage(props) {
   return (
     <div className="ProjectInfoPage">
+      <Button
+        variant="success"
+        className="completeBtn"
+        onClick={props.completeHandler}
+      >
+        프로젝트 완료
+      </Button>
       <h4>project</h4>
       <label className="color_blue">
         {props.project && props.project.name}

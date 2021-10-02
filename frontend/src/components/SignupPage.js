@@ -3,7 +3,7 @@ import "./LoginPage.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Button, NavLink } from "react-bootstrap";
 
-function LoginPage(props) {
+function SignupPage(props) {
   return (
     <div className="LoginPage">
       <Form>
@@ -23,18 +23,19 @@ function LoginPage(props) {
             placeholder="비밀번호"
             onChange={props.passwordHandler}
           />
+          <Form.Label>Check Password</Form.Label>
+          <Form.Control
+            type="password"
+            placeholder="비밀번호"
+            onChange={props.checkPasswordHandler}
+          />
         </Form.Group>
         <Button variant="primary" type="submit" onClick={props.submitHandler}>
-          시작하기
+          가입하기
         </Button>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <NavLink style={{ width: "auto" }} href="/login/sign_up">
-            새로 시작해볼까요?
-          </NavLink>
-        </Form.Group>
       </Form>
     </div>
   );
 }
 
-export default LoginPage;
+export default SignupPage;

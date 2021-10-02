@@ -9,6 +9,7 @@ function MorePage(props) {
   return (
     <div className="MorePage">
       <ListGroup>
+        <ListGroup.Item onClick={props.logoutHandler}>로그아웃</ListGroup.Item>
         <ListGroup.Item>회원정보 수정</ListGroup.Item>
         <ListGroup.Item>회원 탈퇴</ListGroup.Item>
       </ListGroup>
