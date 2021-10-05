@@ -10,6 +10,9 @@ import { fileURLToPath } from "url";
 import ejs from "ejs";
 import cors from "cors";
 import axios from "axios";
+import dotenv from "dotenv";
+dotenv.config();
+
 //for login
 import passport from "passport";
 import passportConfig from "./passport/index.js";

@@ -14,6 +14,25 @@ const cookies = new Cookies();
 axios.defaults.headers.common["Authorization"] =
   `Bearer ` + cookies.get("token");
 
+const checkLastUpdate = (projects, history) => {
+  if (projects.length === 0) return;
+
+  const today = new Date();
+
+  for (const p of projects) {
+    for (
+      let d = new Date(p.last_check);
+      d <= today;
+      d.setDate(d.getDate() + 1)
+    ) {
+      if (d.getDay(d) === 6) {
+        window.alert(p.name + "\n주간 점검 부탁드립니다!");
+        return;
+      }
+    }
+  }
+};
+
 function ProjectsPageContainer(props) {
   let [projects, setProjects] = useState([]);
   let url =
@@ -33,6 +52,10 @@ function ProjectsPageContainer(props) {
         console.error(err);
       });
   }, []);
+
+  useEffect(() => {
+    checkLastUpdate(projects, props.history);
+  }, [projects]);
 
   if (projects.length > 0) {
     projectElements = projects.map((item, index) => {
@@ -55,7 +78,7 @@ function ProjectsPageContainer(props) {
         );
       }
     });
-    return <ProjectsPage projectElements={projectElements} />;
+    return <ProjectsPage projectElements={projectElements} idDone={false} />;
   } else {
     return (
       <button
@@ -64,8 +87,7 @@ function ProjectsPageContainer(props) {
           props.history.push("/project/postpage");
         }}
       >
-        {" "}
-        +{" "}
+        새 프로젝트
       </button>
     );
   }

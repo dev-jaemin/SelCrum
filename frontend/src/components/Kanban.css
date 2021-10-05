@@ -7,16 +7,30 @@
   position: relative;
   border: 2px solid grey;
   border-radius: 5px;
+
+  overflow: auto;
+  text-overflow: ellipsis;
+
+  /*스크롤바 숨기기*/
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
-h5 {
+.Kanban::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera*/
+}
+
+.KanbanPage h5 {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 90px;
-  font-weight: 200;
+  font-weight: 500;
   font-size: medium;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  height: 100%;
+
+  white-space: normal;
+  line-height: 20px;
+  word-wrap: break-word;
 }

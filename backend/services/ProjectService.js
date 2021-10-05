@@ -8,7 +8,7 @@ ProjectService.getProjects = async (params) => {
   let result = [];
 
   result = await getConnection(
-    "SELECT * FROM projects NATURAL JOIN user_project WHERE user_id=? and done=?",
+    "SELECT user_id, project_id, name, info, start_date, end_date, done, last_check, (SELECT MAX(sprint_id) FROM sprints WHERE project_id=projects.project_id) AS last_sprint FROM projects NATURAL JOIN user_project WHERE user_id=? AND done=?",
     [params.userId, params.done === "true"] //그냥 하면 문자열 "true", "false"가 입력된다.
   );
 
@@ -97,6 +97,11 @@ ProjectService.updateSprint = async (sprintId, curSprint, tasks) => {
       t.task_id,
     ]);
   }
+  //project의 마지막체크 시간 기록
+  await getConnection(
+    "UPDATE projects SET last_check=CURDATE() WHERE project_id = ?",
+    curSprint.project_id
+  );
 };
 
 //Task 관련 서비스

@@ -49,11 +49,11 @@ function ProjectAddPageContainer(props) {
       .post("http://localhost:4000/api/project", body)
       .then((res) => {
         console.log("post success");
-        history.push("/");
       })
       .catch((err) => {
         console.error(err);
       });
+    history.push("/");
   };
 
   return (

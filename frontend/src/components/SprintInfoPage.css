@@ -10,13 +10,17 @@
   z-index: 3;
   top: 480px;
   left: 120px;
-  width: 120px;
+  width: 130px;
   font-weight: bolder;
+
+  border-radius: 5px;
+  border-style: none;
 }
 
 .addTaskBtn {
-  float: right;
-  margin-top: -20px;
+  position: absolute;
+  top: 11rem;
+  left: 19rem;
 }
 
 .infoForm {
@@ -51,4 +55,13 @@ li {
 /* 스크롤바 뒷 배경 설정*/
 .infoForm::-webkit-scrollbar-track {
   background-color: rgba(0, 0, 0, 0);
+}
+
+.bracket_small {
+  font-size: medium;
+}
+
+.SprintInfoPage .form-group {
+  max-height: 20rem;
+  overflow: auto;
 }

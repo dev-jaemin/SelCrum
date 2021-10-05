@@ -31,7 +31,7 @@ function ProjectInfoPage(props) {
         variant="primary"
         onClick={props.addHandler}
       >
-        +
+        새 스프린트
       </Button>
       <Nav
         variant="pills"

@@ -27,11 +27,11 @@
   color: white;
   background-color: rgb(0, 186, 255);
   z-index: 3;
-  top: 500px;
-  left: 310px;
+  top: 32rem;
+  left: 15rem;
   border-radius: 5px;
   border: none;
-  width: 30px;
+  width: 7rem;
   height: 30px;
   font-weight: bolder;
 }

@@ -11,10 +11,9 @@ function SprintCard(props) {
   const taskElement =
     props.tasks &&
     props.tasks.map((item, index) => {
-      return <small className="text-muted">{item.task} </small>;
+      return <div className="text-muted">{item.task} </div>;
     });
 
-  //history state에 함수는 못 넣음 수정바람
   return (
     <div
       onClick={() => {

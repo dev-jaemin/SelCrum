@@ -38,9 +38,9 @@ function ProjectsPageContainer_done(props) {
       if (item.done) {
         return (
           <div
-            onClick={() => {
-              props.history.push("/project/" + item.project_id + "/kanban");
-            }}
+          //onClick={() => {
+          //props.history.push("/project/" + item.project_id + "/kanban");
+          //}}
           >
             <ProjectCard
               key={index}
@@ -54,20 +54,8 @@ function ProjectsPageContainer_done(props) {
         );
       }
     });
-    return <ProjectsPage projectElements={projectElements} />;
-  } else {
-    return (
-      <button
-        className="addProjectBtn"
-        onClick={() => {
-          props.history.push("/project/postpage");
-        }}
-      >
-        {" "}
-        +{" "}
-      </button>
-    );
   }
+  return <ProjectsPage projectElements={projectElements} isDone={true} />;
 }
 
 export default ProjectsPageContainer_done;

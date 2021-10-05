@@ -25,12 +25,15 @@ function SprintInfoPage(props) {
           <Form.Control
             type="text"
             onChange={props.nameHandler}
-            value={props.sprintObj.name}
+            value={props.sprintObj && props.sprintObj.name}
           />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicGoal">
-          <h4>해야할 일</h4>
+          <h4>
+            해야할 일
+            <small className="bracket_small">(다 했다면 클릭하세요!)</small>
+          </h4>
           <ul>{props.doingTaskLi}</ul>
           <input
             type="button"

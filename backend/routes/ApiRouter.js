@@ -104,7 +104,7 @@ router.post("/sprint", async function (req, res, next) {
 router.put("/sprint", async function (req, res, next) {
   let curSprint = {
     name: req.body.name,
-    //project_id: req.body.project_id,
+    project_id: req.body.project_id,
     //end_date: req.body.end_date,
   };
 

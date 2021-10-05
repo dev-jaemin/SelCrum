@@ -76,6 +76,8 @@ function KanbanPageContainer({ match }, props) {
         setCurTask("");
       })
       .catch((err) => {
+        setCurTask("");
+        window.alert("올바르지 않은 입력입니다.");
         console.error(err);
       });
   };

@@ -74,7 +74,16 @@ function ProjectInfoPageContainer(props) {
   };
 
   const completeHandler = () => {
-    const flag = window.confirm("프로젝트 잘 마무리하셨나요?");
+    const todoN = tasks.data.filter((element) => element.todo !== 0).length;
+    let flag = false;
+
+    if (todoN === 0) {
+      flag = window.confirm("프로젝트 잘 마무리하셨나요?");
+    } else {
+      flag = window.confirm(
+        "해야할 일이 남아있어요!\n프로젝트가 끝난게 맞나요?"
+      );
+    }
 
     if (flag) {
       window.alert("축하합니다! 당신은 멋진 사람입니다.");

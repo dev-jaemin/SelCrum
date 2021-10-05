@@ -8,16 +8,21 @@ function ProjectsPage(props) {
 
   return (
     <div className="ProjectsPage">
-      {props.projectElements ? props.projectElements : {}}
-      <button
-        className="addProjectBtn"
-        onClick={() => {
-          history.push("/project/postpage");
-        }}
-      >
-        {" "}
-        +{" "}
-      </button>
+      {props.projectElements ? (
+        props.projectElements
+      ) : (
+        <div>완료한 프로젝트가 없습니다.</div>
+      )}
+      {!props.isDone && (
+        <button
+          className="addProjectBtn"
+          onClick={() => {
+            history.push("/project/postpage");
+          }}
+        >
+          새 프로젝트
+        </button>
+      )}
     </div>
   );
 }

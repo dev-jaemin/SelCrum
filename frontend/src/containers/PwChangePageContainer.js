@@ -1,31 +1,32 @@
 import React, { useEffect, useState } from "react";
 
 import { Route } from "react-router-dom";
-import SignupPage from "../components/SignupPage";
+import PwChangePage from "../components/PwChangePage";
 import axios from "axios";
 import { Cookies } from "react-cookie";
+import { current } from "immer";
 
 const cookies = new Cookies();
 
-function SignupPageContainer(props) {
+function PwChangePageContainer(props) {
   useEffect(() => {
-    //로그인 되어있는지 확인하고, 되어있으면 회원가입 시키면 안됌.
+    //로그인 되어있는지 확인하고, 안되어 있으면 회원정보 수정시키면 안됌.
     if (window.localStorage.getItem("userId")) {
       axios.get("http://127.0.0.1:4000/login").then((res) => {
-        if (res.data === "success") {
+        if (res.data !== "success") {
           props.history.push("/project/doing");
         }
       });
     }
   }, []);
 
-  const [id, setId] = useState("");
+  const [currentPassword, setCurrentPassword] = useState("");
   const [password, setPassword] = useState("");
   const [checkPassword, setCheckPassword] = useState("");
 
-  const idHandler = (e) => {
+  const currentPasswordHandler = (e) => {
     e.preventDefault();
-    setId(e.target.value);
+    setCurrentPassword(e.target.value);
   };
 
   const passwordHandler = (e) => {
@@ -48,21 +49,25 @@ function SignupPageContainer(props) {
     }
 
     let body = {
-      user_id: id,
-      pw: password,
+      userId: window.localStorage.userId,
+      currentPw: currentPassword,
+      newPw: password,
     };
 
-    console.log(body);
-
-    axios.post("http://localhost:4000/login/sign_up", body).then((response) => {
-      window.alert("회원가입되셨습니다.");
-      props.history.push("/login");
-    });
+    axios
+      .put("http://localhost:4000/login", body)
+      .then((response) => {
+        window.alert("비밀번호가 변경되었습니다.");
+        props.history.push("/");
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   };
 
   return (
-    <SignupPage
-      idHandler={idHandler}
+    <PwChangePage
+      currentPasswordHandler={currentPasswordHandler}
       passwordHandler={passwordHandler}
       checkPasswordHandler={checkPasswordHandler}
       submitHandler={submitHandler}
@@ -70,4 +75,4 @@ function SignupPageContainer(props) {
   );
 }
 
-export default SignupPageContainer;
+export default PwChangePageContainer;

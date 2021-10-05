@@ -17,7 +17,7 @@ function KanbanPage(props) {
             type="text"
             onChange={props.curTaskHandler}
             value={props.curTask}
-            placeholder="할 일을 추가하세요"
+            placeholder="할 일을 추가하세요(50자 까지)"
             size="10"
             className="kanbanInput"
           />

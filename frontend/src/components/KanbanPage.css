@@ -5,7 +5,7 @@
 }
 
 h4 {
-  1clear: both;
+  clear: left;
   color: orangered;
   font-weight: 800;
 }
@@ -38,7 +38,7 @@ h4 {
 .nav-link {
   color: orangered;
   font-weight: 700;
-  width: 170px;
+  width: 10.85rem;
   text-align: center;
 }
 

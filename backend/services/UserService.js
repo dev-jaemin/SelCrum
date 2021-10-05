@@ -4,15 +4,22 @@ import bcrypt from "bcrypt";
 import passport from "passport";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
+import dotenv from "dotenv";
 
 const UserService = {
   getUserById: async (userId) => {
-    let result = await getConnection(
+    const result = await getConnection(
       "SELECT * FROM users WHERE user_id = ?",
       userId
     );
 
     return result[0][0];
+  },
+
+  checkPassword: async (userId, pw) => {
+    const user = await UserService.getUserById(userId);
+
+    return bcrypt.compareSync(pw, user.pw);
   },
 
   addUser: async (user) => {
@@ -63,7 +70,7 @@ const UserService = {
           {
             user_id: user.user_id,
           },
-          "global.config.secret",
+          process.env.JWT_KEY,
           { expiresIn: "60m" }
         );
 
@@ -79,6 +86,34 @@ const UserService = {
         return res.send({ token });
       });
     })(req, res);
+  },
+
+  updateUser: async (user) => {
+    if (UserService.checkPassword(user.userId, user.currentPw)) {
+      const encryptedPassword = bcrypt.hashSync(user.newPw, 12);
+      user.newPw = encryptedPassword;
+
+      return await getConnection("UPDATE users SET pw=? WHERE user_id=?", [
+        user.newPw,
+        user.userId,
+      ]);
+    } else {
+      return -1;
+    }
+  },
+
+  deleteUser: async (user) => {
+    if (UserService.checkPassword(user.userId, user.pw)) {
+      await getConnection(
+        "DELETE FROM user_project WHERE user_id=?",
+        user.userId
+      );
+      await getConnection("DELETE FROM users WHERE user_id=?", user.userId);
+
+      return 1;
+    } else {
+      return -1;
+    }
   },
 };
 

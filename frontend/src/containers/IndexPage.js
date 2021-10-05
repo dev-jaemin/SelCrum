@@ -11,6 +11,7 @@ import SprintInfoPageContainer from "./SprintInfoPageContainer";
 import LoginPageContainer from "./LoginPageContainer";
 import MorePageContainer from "./MorePageContainer";
 import SignupPageContainer from "./SignupPageContainer";
+import PwChangePageContainer from "./PwChangePageContainer";
 import { Route } from "react-router-dom";
 
 function IndexPage() {
@@ -20,6 +21,7 @@ function IndexPage() {
       <Route path="/" component={LoginPageContainer} exact />
       <Route path="/login" component={LoginPageContainer} exact />
       <Route path="/login/sign_up" component={SignupPageContainer} exact />
+      <Route path="/login/update" component={PwChangePageContainer} exact />
       <Route path="/project/doing" component={ProjectsPageContainer} exact />
       <Route
         path="/project/done"

@@ -142,7 +142,7 @@ function SprintInfoPageContainer(props) {
       name: sprintObj.name,
       //tasks: sprintTaskArr[curId],
       tasks: taskArr,
-      project_id: props.match.params.projectId,
+      project_id: sprintObj.project_id,
       //end_date: sprintObj.end_date,
     };
 

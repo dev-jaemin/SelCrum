@@ -41,14 +41,24 @@ function LoginPageContainer(props) {
       pw: password,
     };
 
-    axios.post("http://localhost:4000/login", body).then((response) => {
-      const { token } = response.data;
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-      cookies.set("token", token);
-      window.localStorage.setItem("userId", body.user_id);
+    axios
+      .post("http://localhost:4000/login", body)
+      .then((response) => {
+        if (response.status === 200) {
+          const { token } = response.data;
+          axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+          cookies.set("token", token);
+          window.localStorage.setItem("userId", body.user_id);
 
-      props.history.push("/project/doing");
-    });
+          props.history.push("/project/doing");
+        } else {
+          window.alert("비밀번호가 틀립니다.");
+        }
+      })
+      .catch((err) => {
+        window.alert("비밀번호가 틀립니다.");
+        console.error(err);
+      });
   };
 
   return (
