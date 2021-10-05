@@ -52,6 +52,16 @@ router.get("/project/:projectId", async function (req, res, next) {
   }
 });
 
+//projectId가 있을 때 프로젝트 완료 처리
+router.put("/project/:projectId/complete", async function (req, res, next) {
+  try {
+    res.send(await ProjectService.updateCompleteProject(req.params.projectId));
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
+});
+
 //sprintId가 있을 때 프로젝트 정보 응답
 router.get("/sprint/:sprintId", async function (req, res, next) {
   try {

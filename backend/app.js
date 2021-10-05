@@ -9,12 +9,17 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import ejs from "ejs";
 import cors from "cors";
+import axios from "axios";
 //for login
 import passport from "passport";
-import passportConfig from "./passport";
+import passportConfig from "./passport/index.js";
+import jwt from "express-jwt";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const port = 4000;
+
+//axios.defaults.withCredentials = true;
 
 //es6 type:module은 __dirname이 없음.
 const __filename = fileURLToPath(import.meta.url);
@@ -24,17 +29,18 @@ app.set("views", __dirname + "/views");
 app.set("view engine", "ejs");
 app.engine("html", ejs.renderFile);
 
+/*
 app.use(
   session({
     key: "sessionId",
-    secret: "secret",
+    secret: "global.config.secret",
     resave: false,
     saveUninitialized: true,
     cookie: {
       maxAge: 24000 * 60 * 60, // 쿠키 유효기간 24시간
     },
   })
-);
+);*/
 
 app.use(express.static("public"));
 app.use(logger("dev"));
@@ -52,12 +58,24 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 //passport 모듈
+app.use(cookieParser());
 app.use(passport.initialize());
 passportConfig();
 
-app.use("/", MainRouter);
+/*
+app.use(
+  jwt({
+    secret: "global.config.secret",
+    algorithms: ["HS256"],
+    getToken: (req) => req.cookies.token,
+  })
+);*/
+
+//app.use("/", MainRouter);
 app.use("/login", LoginRouter);
-app.use("/api", ApiRouter);
+//미들웨어로 auth를 넣어서 로그인 검증
+app.use("/api", passport.authenticate("jwt", { session: false }), ApiRouter);
+//app.use("/api", ApiRouter);
 
 //404 not found 처리
 app.get((req, res) => {
@@ -69,7 +87,7 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = process.env.NODE_ENV !== "production" ? err : {};
   res.status(err.status || 500);
-  res.render("error");
+  //res.render("error");
 });
 
 const server = app.listen(port, function () {

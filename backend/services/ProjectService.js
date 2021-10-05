@@ -34,6 +34,15 @@ ProjectService.getProjectById = async (projectId) => {
   return result[0];
 };
 
+ProjectService.updateCompleteProject = async (projectId) => {
+  const result = await getConnection(
+    "UPDATE projects SET done=1 WHERE project_id=?",
+    projectId
+  );
+
+  return result;
+};
+
 //Sprint 관련 서비스
 ProjectService.getSprintById = async (sprintId) => {
   let result = [];

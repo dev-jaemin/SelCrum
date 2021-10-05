@@ -27,3 +27,4 @@ dbconfig.json
 node_modules/
 backend/services/db/dbconfig.js
 backend/services/db/
+backend/passport/

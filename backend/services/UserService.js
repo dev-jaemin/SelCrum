@@ -1,6 +1,9 @@
 import { getConnection } from "./db/database.js";
 import { createHash } from "crypto";
-import { nextTick } from "process";
+import bcrypt from "bcrypt";
+import passport from "passport";
+import jwt from "jsonwebtoken";
+import cookieParser from "cookie-parser";
 
 const UserService = {
   getUserById: async (userId) => {
@@ -13,6 +16,7 @@ const UserService = {
   },
 
   addUser: async (user) => {
+    /*
     let salt = Math.round(new Date().valueOf() * Math.random()) + "";
     let hashPassword = createHash("sha512")
       .update(user.pw + salt)
@@ -20,9 +24,12 @@ const UserService = {
     user.pw = hashPassword;
     user.salt = salt;
 
-    console.log(user);
+    console.log(user);*/
 
-    await getConnection("INSERT INTO users set ?", user);
+    const encryptedPassword = bcrypt.hashSync(user.pw, 12);
+    user.pw = encryptedPassword;
+
+    return await getConnection("INSERT INTO users set ?", user);
   },
 
   login: async (req) => {
@@ -45,6 +52,33 @@ const UserService = {
       console.log(body.userId + "비밀번호 불일치");
     }
     //res.redirect("/user/login");
+  },
+
+  create: (req, res, next) => {
+    passport.authenticate("local", { session: false }, (err, user) => {
+      if (err || !user) return res.status(400).end();
+      req.login(user, { session: false }, (error) => {
+        if (error) next(error);
+        const token = jwt.sign(
+          {
+            user_id: user.user_id,
+          },
+          "global.config.secret",
+          { expiresIn: "60m" }
+        );
+
+        //cors
+        res.header("Access-Control-Allow-Origin", "http://127.0.0.1:3000");
+        res.header(
+          "Access-Control-Allow-Headers",
+          "Origin, X-Requested-With, Content-Type, Accept"
+        );
+        res.header("Access-Control-Allow-Credentials", true);
+        res.cookie("token", token, { httpOnly: true });
+
+        return res.send({ token });
+      });
+    })(req, res);
   },
 };
 
