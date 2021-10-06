@@ -27,8 +27,8 @@ function LoginPage(props) {
         <Button variant="primary" type="submit" onClick={props.submitHandler}>
           시작하기
         </Button>
-        <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <NavLink style={{ width: "auto" }} href="/login/sign_up">
+        <Form.Group className="mb-3">
+          <NavLink style={{ width: "auto" }} onClick={props.signupPageHandler}>
             새로 시작해볼까요?
           </NavLink>
         </Form.Group>

@@ -41,11 +41,15 @@ function ProjectInfoPageContainer(props) {
   const KanbanPageUrl = "/project/" + projectId + "/kanban";
   const SprintPageUrl = "/project/" + projectId + "/sprint";
 
-  const apiUrlForPrj = "/api/project/" + projectId;
-  const apiUrlForTasks = "/api/project/" + projectId + "/task";
-  const apiUrlForSpr = "/api/project/" + projectId + "/sprint";
-  const apiUrlForTaskSpr = "/api/project/" + projectId + "/task_sprint";
-  const apiUrlForComplete = "/api/project/" + projectId + "/complete";
+  const apiUrlForPrj = "http://127.0.0.1:4000/api/project/" + projectId;
+  const apiUrlForTasks =
+    "http://127.0.0.1:4000/api/project/" + projectId + "/task";
+  const apiUrlForSpr =
+    "http://127.0.0.1:4000/api/project/" + projectId + "/sprint";
+  const apiUrlForTaskSpr =
+    "http://127.0.0.1:4000/api/project/" + projectId + "/task_sprint";
+  const apiUrlForComplete =
+    "http://127.0.0.1:4000/api/project/" + projectId + "/complete";
   const dispatch = useDispatch();
 
   const tasks = useSelector((state) => state.tasks);
@@ -97,6 +101,18 @@ function ProjectInfoPageContainer(props) {
     }
   };
 
+  const historyHandler1 = (e) => {
+    e.preventDefault();
+
+    props.history.push(KanbanPageUrl);
+  };
+
+  const historyHandler2 = (e) => {
+    e.preventDefault();
+
+    props.history.push(SprintPageUrl);
+  };
+
   const taskById = (task_id) => {
     for (let t of tasks.data) {
       if (t.task_id === task_id) return t.task;
@@ -141,14 +157,14 @@ function ProjectInfoPageContainer(props) {
 
   return (
     <ProjectInfoPage
-      SprintPageUrl={SprintPageUrl}
-      KanbanPageUrl={KanbanPageUrl}
       sprints={sprints}
       tasks={tasks}
       project={currentProject[0]}
       sprintElements={sprintElements}
       addHandler={addHandler}
       completeHandler={completeHandler}
+      historyHandler1={historyHandler1}
+      historyHandler2={historyHandler2}
     />
   );
 }

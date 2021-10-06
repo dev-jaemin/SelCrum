@@ -3,6 +3,7 @@ import axios from "axios";
 import { Route } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { insertTask, setInitTask } from "../modules/tasks";
+import { useHistory } from "react-router";
 
 import KanbanPage from "../components/KanbanPage";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -21,9 +22,12 @@ function KanbanPageContainer({ match }, props) {
   const projectId = parseInt(match.params.projectId);
   const KanbanPageUrl = "/project/" + projectId + "/kanban";
   const SprintPageUrl = "/project/" + projectId + "/sprint";
-  const apiUrl = "/api/project/" + projectId + "/task";
-  const urlForSprint = "/api/project/" + projectId + "/task/sprint";
-  const urlForTask = "/api/task";
+  const apiUrl = "http://127.0.0.1:4000/api/project/" + projectId + "/task";
+  const urlForSprint =
+    "http://127.0.0.1:4000/api/project/" + projectId + "/task/sprint";
+  const urlForTask = "http://127.0.0.1:4000/api/task";
+
+  const history = useHistory();
 
   const [curTask, setCurTask] = useState("");
 
@@ -82,6 +86,19 @@ function KanbanPageContainer({ match }, props) {
       });
   };
 
+  const historyHandler1 = (e) => {
+    e.preventDefault();
+
+    history.push(KanbanPageUrl);
+  };
+
+  const historyHandler2 = (e) => {
+    e.preventDefault();
+
+    console.log(history);
+    history.push(SprintPageUrl);
+  };
+
   //if (selectedTasks.length > 0) {
   doingTodo =
     selectedTasks &&
@@ -120,11 +137,11 @@ function KanbanPageContainer({ match }, props) {
       todoTodo={todoTodo}
       doingTodo={doingTodo}
       doneTodo={doneTodo}
-      KanbanPageUrl={KanbanPageUrl}
-      SprintPageUrl={SprintPageUrl}
       curTask={curTask}
       curTaskHandler={curTaskHandler}
       submitHandler={submitHandler}
+      historyHandler1={historyHandler1}
+      historyHandler2={historyHandler2}
     />
   );
 }

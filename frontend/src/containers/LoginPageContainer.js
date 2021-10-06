@@ -42,7 +42,7 @@ function LoginPageContainer(props) {
     };
 
     axios
-      .post("http://localhost:4000/login", body)
+      .post("http://127.0.0.1:4000/login", body)
       .then((response) => {
         if (response.status === 200) {
           const { token } = response.data;
@@ -61,11 +61,18 @@ function LoginPageContainer(props) {
       });
   };
 
+  const signupPageHandler = (e) => {
+    e.preventDefault();
+
+    props.history.push("/login/sign_up");
+  };
+
   return (
     <LoginPage
       idHandler={idHandler}
       passwordHandler={passwordHandler}
       submitHandler={submitHandler}
+      signupPageHandler={signupPageHandler}
     />
   );
 }

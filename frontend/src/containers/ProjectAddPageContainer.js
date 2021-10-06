@@ -46,7 +46,7 @@ function ProjectAddPageContainer(props) {
     console.log(body);
 
     axios
-      .post("http://localhost:4000/api/project", body)
+      .post("http://127.0.0.1:4000/api/project", body)
       .then((res) => {
         console.log("post success");
       })

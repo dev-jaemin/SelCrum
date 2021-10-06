@@ -149,7 +149,7 @@ function SprintInfoPageContainer(props) {
     console.log(body);
 
     axios
-      .put("http://localhost:4000/api/sprint", body)
+      .put("http://127.0.0.1:4000/api/sprint", body)
       .then((res) => {})
       .catch((err) => {
         console.error(err);

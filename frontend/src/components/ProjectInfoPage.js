@@ -35,14 +35,18 @@ function ProjectInfoPage(props) {
       </Button>
       <Nav
         variant="pills"
-        defaultActiveKey={props.SprintPageUrl}
+        defaultActiveKey={2}
         className="SprintPageNav justify-content-center"
       >
-        <Nav.Item key="1">
-          <Nav.Link href={props.KanbanPageUrl}>칸반 보드</Nav.Link>
+        <Nav.Item>
+          <Nav.Link eventKey="1" onClick={props.historyHandler1}>
+            칸반 보드
+          </Nav.Link>
         </Nav.Item>
-        <Nav.Item key="2">
-          <Nav.Link href={props.SprintPageUrl}>스프린트</Nav.Link>
+        <Nav.Item>
+          <Nav.Link eventKey="2" onClick={props.historyHandler2}>
+            스프린트
+          </Nav.Link>
         </Nav.Item>
       </Nav>
     </div>

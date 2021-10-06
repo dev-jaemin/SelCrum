@@ -54,7 +54,7 @@ function SignupPageContainer(props) {
 
     console.log(body);
 
-    axios.post("http://localhost:4000/login/sign_up", body).then((response) => {
+    axios.post("http://127.0.0.1:4000/login/sign_up", body).then((response) => {
       window.alert("회원가입되셨습니다.");
       props.history.push("/login");
     });

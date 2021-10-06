@@ -7,6 +7,6 @@
     "default_popup": "index.html",
     "default_title": "Open the popup"
   },
-  "permissions": [],
+  "permissions": ["http://127.0.0.1:4000/"],
   "content_security_policy": "script-src 'self' 'sha256-ksAhjuh4HmbEX3c6/j6Vd/10ecHAPb0YzrzafKogQ1E='; object-src 'self'"
 }
