@@ -5,6 +5,7 @@ import passport from "passport";
 import jwt from "jsonwebtoken";
 import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
+dotenv.config();
 
 const UserService = {
   getUserById: async (userId) => {

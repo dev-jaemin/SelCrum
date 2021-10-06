@@ -4,6 +4,8 @@ import bcrypt from "bcrypt";
 import passport from "passport";
 import passportJWT from "passport-jwt";
 import { Strategy } from "passport-local";
+import dotenv from "dotenv";
+dotenv.config();
 
 const JWTStrategy = passportJWT.Strategy;
 const { ExtractJwt } = passportJWT;
@@ -37,7 +39,7 @@ async function localVerify(user_id, password, done) {
 
 const jwtStrategyOption = {
   jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: "global.config.secret",
+  secretOrKey: process.env.JWT_KEY,
 };
 
 async function jwtVerift(payload, done) {

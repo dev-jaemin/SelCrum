@@ -9282,6 +9282,11 @@ react-bootstrap@^1.6.1:
     uncontrollable "^7.2.1"
     warning "^4.0.3"
 
+react-chrome-extension-router@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-chrome-extension-router/-/react-chrome-extension-router-1.2.0.tgz#847db6db75c598767a3d4f30e8eb8f631ffe0004"
+  integrity sha512-nLE76mLQMzNC9I0Izc7hreNEQabsR9sYuFhGnhShVNTxAaBZyyYV/2QyM/qD6/igxyxc4ZnO54UshvtTwSIDEA==
+
 react-cookie@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/react-cookie/-/react-cookie-4.1.1.tgz#832e134ad720e0de3e03deaceaab179c4061a19d"
