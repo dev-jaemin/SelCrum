@@ -46,7 +46,13 @@ app.use(
 );*/
 
 app.use(express.static("public"));
-app.use(logger("dev"));
+
+//combined모드가 좀 더 많은 로그 남김
+if (process.env.NODE_ENV === "production") {
+  app.use(logger("combined"));
+} else {
+  app.use(logger("dev"));
+}
 
 //3000번 포트에서도 api서버와 통신할 수 있게끔 설정. 이거 없으면 CORS 위반이라 해서 같은 포트 아니면 통신안됌.
 const corsOptions = {

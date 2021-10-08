@@ -5,12 +5,13 @@ import axios from "axios";
 import MorePage from "../components/MorePage";
 
 import { Cookies } from "react-cookie";
+
 const cookies = new Cookies();
 axios.defaults.headers.common["Authorization"] =
   `Bearer ` + cookies.get("token");
 
 function MorePageContainer(props) {
-  const secessionUrl = "http://127.0.0.1:4000/login";
+  const secessionUrl = process.env.REACT_APP_API_URL + "/login";
 
   const logoutHandler = () => {
     window.localStorage.removeItem("userId");

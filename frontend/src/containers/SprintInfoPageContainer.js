@@ -28,6 +28,8 @@ axios.defaults.headers.common["Authorization"] =
 //https://velog.io/@dhlee91/this.props.history.push%EB%A1%9C-props-%EB%84%98%EA%B2%A8%EC%A3%BC%EA%B8%B0
 
 function SprintInfoPageContainer(props) {
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const [name, setName] = useState("");
   const [selectedTasks, setSelectedTasks] = useState("");
   const [deadline, setDeadline] = useState("");
@@ -48,7 +50,7 @@ function SprintInfoPageContainer(props) {
     //dispatch(setInitArr());
     //여기서 sprintObj를 api로 받아올 것
     axios
-      .get("/api/sprint/" + props.match.params.sprintId)
+      .get(apiUrl + "/api/sprint/" + props.match.params.sprintId)
       .then((response) => {
         /*
         setSprintObj({
@@ -149,7 +151,7 @@ function SprintInfoPageContainer(props) {
     console.log(body);
 
     axios
-      .put("http://127.0.0.1:4000/api/sprint", body)
+      .put(apiUrl + "/api/sprint", body)
       .then((res) => {})
       .catch((err) => {
         console.error(err);

@@ -16,7 +16,8 @@ axios.defaults.headers.common["Authorization"] =
 function ProjectsPageContainer_done(props) {
   let [projects, setProjects] = useState([]);
   let url =
-    "http://127.0.0.1:4000/api/project?userId=" +
+    process.env.REACT_APP_API_URL +
+    "/api/project?userId=" +
     window.localStorage.getItem("userId") +
     "&done=true";
   let projectElements = [];

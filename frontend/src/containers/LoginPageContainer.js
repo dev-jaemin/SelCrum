@@ -8,10 +8,13 @@ import { Cookies } from "react-cookie";
 const cookies = new Cookies();
 
 function LoginPageContainer(props) {
+  const loginUrl = process.env.REACT_APP_API_URL + "/login";
+  console.log(loginUrl);
+
   useEffect(() => {
     //일단 로그인 페이지로 접속시키고, 이미 인증되어 있는거면 바로 메인화면으로 돌리기
     if (window.localStorage.getItem("userId")) {
-      axios.get("http://127.0.0.1:4000/login").then((res) => {
+      axios.get(loginUrl).then((res) => {
         if (res.data === "success") {
           props.history.push("/project/doing");
         }
@@ -42,7 +45,7 @@ function LoginPageContainer(props) {
     };
 
     axios
-      .post("http://127.0.0.1:4000/login", body)
+      .post(loginUrl, body)
       .then((response) => {
         if (response.status === 200) {
           const { token } = response.data;
@@ -52,11 +55,11 @@ function LoginPageContainer(props) {
 
           props.history.push("/project/doing");
         } else {
-          window.alert("비밀번호가 틀립니다.");
+          window.alert("로그인에 실패했습니다.");
         }
       })
       .catch((err) => {
-        window.alert("비밀번호가 틀립니다.");
+        window.alert("로그인에 실패했습니다.");
         console.error(err);
       });
   };

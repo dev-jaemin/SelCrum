@@ -5,7 +5,8 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "cross-env NODE_ENV=production node app.js",
+    "dev": "nodemon app.js"
   },
   "dependencies": {
     "assert": "^2.0.0",
@@ -14,6 +15,7 @@
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "crypto": "^1.0.1",
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
@@ -30,6 +32,7 @@
     "passport": "^0.5.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "pm2": "^5.1.2",
     "sync-mysql": "^3.0.1"
   }
 }

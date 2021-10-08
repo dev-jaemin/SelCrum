@@ -13,6 +13,8 @@ axios.defaults.headers.common["Authorization"] =
 //https://darrengwon.tistory.com/337
 
 function ProjectAddPageContainer(props) {
+  const apiUrl = process.env.REACT_APP_API_URL + "/api/project";
+
   const [name, setName] = useState("");
   const [info, setInfo] = useState("");
   const [deadline, setDeadline] = useState("");
@@ -46,7 +48,7 @@ function ProjectAddPageContainer(props) {
     console.log(body);
 
     axios
-      .post("http://127.0.0.1:4000/api/project", body)
+      .post(apiUrl, body)
       .then((res) => {
         console.log("post success");
       })

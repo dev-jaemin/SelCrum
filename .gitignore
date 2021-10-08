@@ -23,9 +23,10 @@ yarn-debug.log*
 yarn-error.log*
 
 *.txt
-dbconfig.json
+
 node_modules/
 backend/services/db/dbconfig.js
 backend/services/db/
 backend/passport/
 backend/.env
+frontend/.env

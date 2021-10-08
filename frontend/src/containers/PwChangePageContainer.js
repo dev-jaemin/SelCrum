@@ -9,10 +9,11 @@ import { current } from "immer";
 const cookies = new Cookies();
 
 function PwChangePageContainer(props) {
+  const loginUrl = process.env.REACT_APP_API_URL + "/login";
   useEffect(() => {
     //로그인 되어있는지 확인하고, 안되어 있으면 회원정보 수정시키면 안됌.
     if (window.localStorage.getItem("userId")) {
-      axios.get("http://127.0.0.1:4000/login").then((res) => {
+      axios.get(loginUrl).then((res) => {
         if (res.data !== "success") {
           props.history.push("/project/doing");
         }
@@ -55,7 +56,7 @@ function PwChangePageContainer(props) {
     };
 
     axios
-      .put("http://localhost:4000/login", body)
+      .put(loginUrl, body)
       .then((response) => {
         window.alert("비밀번호가 변경되었습니다.");
         props.history.push("/");

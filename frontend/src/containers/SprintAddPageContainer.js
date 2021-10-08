@@ -24,6 +24,8 @@ axios.defaults.headers.common["Authorization"] =
 //https://velog.io/@dhlee91/this.props.history.push%EB%A1%9C-props-%EB%84%98%EA%B2%A8%EC%A3%BC%EA%B8%B0
 
 function SprintAddPageContainer(props) {
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const [name, setName] = useState("");
   const [selectedTasks, setSelectedTasks] = useState("");
   const [deadline, setDeadline] = useState("");
@@ -102,7 +104,7 @@ function SprintAddPageContainer(props) {
     console.log(body);
 
     axios
-      .post("http://127.0.0.1:4000/api/sprint", body)
+      .post(apiUrl + "/api/sprint", body)
       .then((res) => {
         console.log(res);
       })

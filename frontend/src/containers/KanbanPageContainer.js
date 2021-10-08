@@ -9,8 +9,9 @@ import KanbanPage from "../components/KanbanPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Kanban from "../components/Kanban";
 
-//아무리해도 서버에서 쿠키로 Auth검증하는 것이 되지않아 임시로 이렇게 처리
 import { Cookies } from "react-cookie";
+
+//아무리해도 서버에서 쿠키로 Auth검증하는 것이 되지않아 임시로 이렇게 처리
 const cookies = new Cookies();
 axios.defaults.headers.common["Authorization"] =
   `Bearer ` + cookies.get("token");
@@ -22,10 +23,14 @@ function KanbanPageContainer({ match }, props) {
   const projectId = parseInt(match.params.projectId);
   const KanbanPageUrl = "/project/" + projectId + "/kanban";
   const SprintPageUrl = "/project/" + projectId + "/sprint";
-  const apiUrl = "http://127.0.0.1:4000/api/project/" + projectId + "/task";
+  const apiUrl =
+    process.env.REACT_APP_API_URL + "/api/project/" + projectId + "/task";
   const urlForSprint =
-    "http://127.0.0.1:4000/api/project/" + projectId + "/task/sprint";
-  const urlForTask = "http://127.0.0.1:4000/api/task";
+    process.env.REACT_APP_API_URL +
+    "/api/project/" +
+    projectId +
+    "/task/sprint";
+  const urlForTask = process.env.REACT_APP_API_URL + "/api/task";
 
   const history = useHistory();
 

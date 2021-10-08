@@ -8,10 +8,11 @@ import { Cookies } from "react-cookie";
 const cookies = new Cookies();
 
 function SignupPageContainer(props) {
+  const loginUrl = process.env.REACT_APP_API_URL + "/login";
   useEffect(() => {
     //로그인 되어있는지 확인하고, 되어있으면 회원가입 시키면 안됌.
     if (window.localStorage.getItem("userId")) {
-      axios.get("http://127.0.0.1:4000/login").then((res) => {
+      axios.get(loginUrl).then((res) => {
         if (res.data === "success") {
           props.history.push("/project/doing");
         }
@@ -54,10 +55,12 @@ function SignupPageContainer(props) {
 
     console.log(body);
 
-    axios.post("http://127.0.0.1:4000/login/sign_up", body).then((response) => {
-      window.alert("회원가입되셨습니다.");
-      props.history.push("/login");
-    });
+    axios
+      .post(process.env.REACT_APP_API_URL + "/sign_up", body)
+      .then((response) => {
+        window.alert("회원가입되셨습니다.");
+        props.history.push("/login");
+      });
   };
 
   return (
