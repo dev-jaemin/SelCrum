@@ -1,5 +1,6 @@
 import express from "express";
 import passport from "passport";
+import logger from "../logger.js";
 import UserService from "../services/UserService.js";
 
 const router = express.Router();
@@ -12,14 +13,14 @@ router.post("/sign_up", async function (req, res, next) {
     pw: body.pw,
   };
 
-  console.log("회원가입: " + newUser.user_id);
+  logger.info("회원가입: " + newUser.user_id);
 
   try {
     UserService.addUser(newUser);
     res.status(200);
     res.send("success sign_up");
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 
@@ -38,6 +39,7 @@ router.get(
 // 로그인 POST
 router.post("/", (req, res, next) => {
   UserService.create(req, res, next);
+  logger.info("log in: " + req.body.user_id);
 });
 
 router.get("/logout", function (req, res, next) {
@@ -66,7 +68,7 @@ router.put("/", function (req, res, next) {
       res.send("Not Correct Password");
     }
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 });
@@ -90,7 +92,7 @@ router.delete("/", function (req, res, next) {
       res.send("Not Correct Password");
     }
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 });

@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node app.js",
+    "start": "cross-env NODE_ENV=production pm2 start app.js",
     "dev": "nodemon app.js"
   },
   "dependencies": {
@@ -23,6 +23,7 @@
     "express-jwt": "^6.1.0",
     "express-session": "^1.17.2",
     "fs": "^0.0.1-security",
+    "helmet": "^4.6.0",
     "jsonwebtoken": "^8.5.1",
     "jwt-express": "^1.1.0",
     "morgan": "^1.10.0",
@@ -33,6 +34,7 @@
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pm2": "^5.1.2",
-    "sync-mysql": "^3.0.1"
+    "sync-mysql": "^3.0.1",
+    "winston": "^3.3.3"
   }
 }

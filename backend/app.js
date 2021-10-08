@@ -9,6 +9,7 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import ejs from "ejs";
 import cors from "cors";
+import helmet from "helmet";
 import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
@@ -50,15 +51,19 @@ app.use(express.static("public"));
 //combined모드가 좀 더 많은 로그 남김
 if (process.env.NODE_ENV === "production") {
   app.use(logger("combined"));
+  //for security
+  app.use(helmet());
 } else {
   app.use(logger("dev"));
 }
 
 //3000번 포트에서도 api서버와 통신할 수 있게끔 설정. 이거 없으면 CORS 위반이라 해서 같은 포트 아니면 통신안됌.
+/*
 const corsOptions = {
   origin: "http://localhost:3000",
   credentials: true,
 };
+*/
 
 app.use(cors());
 

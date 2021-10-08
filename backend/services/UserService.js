@@ -40,28 +40,6 @@ const UserService = {
     return await getConnection("INSERT INTO users set ?", user);
   },
 
-  login: async (req) => {
-    let body = req.body;
-
-    let result = await UserService.getUserById(body.userId);
-
-    let dbPassword = result.pw;
-    let inputPassword = body.pw;
-    let salt = result.salt;
-    let hashPassword = createHash("sha512")
-      .update(inputPassword + salt)
-      .digest("hex");
-
-    if (dbPassword === hashPassword) {
-      console.log(body.userId + " 비밀번호 일치");
-      // 세션 설정
-      req.session.userId = body.userId;
-    } else {
-      console.log(body.userId + "비밀번호 불일치");
-    }
-    //res.redirect("/user/login");
-  },
-
   create: (req, res, next) => {
     passport.authenticate("local", { session: false }, (err, user) => {
       if (err || !user) return res.status(400).end();
