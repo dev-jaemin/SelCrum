@@ -29,4 +29,8 @@ backend/services/db/dbconfig.js
 backend/services/db/
 backend/passport/
 backend/.env
+backend/error.log
+backend/combined.log
+
+
 frontend/.env
