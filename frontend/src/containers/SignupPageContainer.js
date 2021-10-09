@@ -56,7 +56,7 @@ function SignupPageContainer(props) {
     console.log(body);
 
     axios
-      .post(process.env.REACT_APP_API_URL + "/sign_up", body)
+      .post(process.env.REACT_APP_API_URL + "/login/sign_up", body)
       .then((response) => {
         window.alert("회원가입되셨습니다.");
         props.history.push("/login");
