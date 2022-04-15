@@ -1,12 +1,8 @@
 import "./KanbanPage.css";
 
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Nav, Form } from "react-bootstrap";
 
 import KanbanEmpty from "./KanbanEmpty";
-
-//KanbanPage의 match에 projectId를 받아와서 API서버에 넣어서 통신예정
-//api통신할 때 componentDidMount 적당히 활용할 것
 
 function KanbanPage(props) {
   return (
@@ -21,31 +17,16 @@ function KanbanPage(props) {
             size="10"
             className="kanbanInput"
           />
-          <input
-            type="submit"
-            className="addTaskBtn2"
-            variant="primary"
-            value="추가"
-          />
+          <input type="submit" className="addTaskBtn2" variant="primary" value="추가" />
         </Form.Group>
       </Form>
       <h4>해야 해요</h4>
-      <div className="board todo">
-        {props.todoTodo.length ? props.todoTodo : <KanbanEmpty />}
-      </div>
+      <div className="board todo">{props.todoTodo.length ? props.todoTodo : <KanbanEmpty />}</div>
       <h4>하고 있어요</h4>
-      <div className="board doing">
-        {props.doingTodo.length ? props.doingTodo : <KanbanEmpty />}
-      </div>
+      <div className="board doing">{props.doingTodo.length ? props.doingTodo : <KanbanEmpty />}</div>
       <h4>다 했어요</h4>
-      <div className="board done">
-        {props.doneTodo.length ? props.doneTodo : <KanbanEmpty />}
-      </div>
-      <Nav
-        variant="pills"
-        defaultActiveKey={1}
-        className="SprintPageNav justify-content-center"
-      >
+      <div className="board done">{props.doneTodo.length ? props.doneTodo : <KanbanEmpty />}</div>
+      <Nav variant="pills" defaultActiveKey={1} className="SprintPageNav justify-content-center">
         <Nav.Item>
           <Nav.Link eventKey="1" onClick={props.historyHandler1}>
             칸반 보드

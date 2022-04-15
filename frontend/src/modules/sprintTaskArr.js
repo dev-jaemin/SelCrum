@@ -51,9 +51,7 @@ export default function sprintTaskArr(state = initialState, action) {
       return produce(state, (draft) => {
         console.log(action);
         action.sprints.forEach((s) => {
-          const selectedTask = action.task_sprint.filter(
-            (t) => t.sprint_id === s.sprint_id
-          );
+          const selectedTask = action.task_sprint.filter((t) => t.sprint_id === s.sprint_id);
           draft[s.sprint_id] = selectedTask.map((a) => a.task_id);
         });
       });
@@ -63,9 +61,7 @@ export default function sprintTaskArr(state = initialState, action) {
       });
     case REMOVE_TASK:
       return produce(state, (draft) => {
-        draft[action.sprintId] = draft[action.sprintId].filter(
-          (element) => element !== action.taskId
-        );
+        draft[action.sprintId] = draft[action.sprintId].filter((element) => element !== action.taskId);
       });
     default:
       return state;

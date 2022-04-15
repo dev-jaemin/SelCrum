@@ -1,16 +1,12 @@
 import React, { useState } from "react";
 import axios from "axios";
-import { Route, useHistory } from "react-router-dom";
-
+import { useHistory } from "react-router-dom";
 import ProjectAddPage from "../components/ProjectAddPage";
 
 //아무리해도 서버에서 쿠키로 Auth검증하는 것이 되지않아 임시로 이렇게 처리
 import { Cookies } from "react-cookie";
 const cookies = new Cookies();
-axios.defaults.headers.common["Authorization"] =
-  `Bearer ` + cookies.get("token");
-
-//https://darrengwon.tistory.com/337
+axios.defaults.headers.common["Authorization"] = `Bearer ` + cookies.get("token");
 
 function ProjectAddPageContainer(props) {
   const apiUrl = process.env.REACT_APP_API_URL + "/api/project";
@@ -45,16 +41,9 @@ function ProjectAddPageContainer(props) {
       end_date: deadline,
     };
 
-    console.log(body);
-
-    axios
-      .post(apiUrl, body)
-      .then((res) => {
-        console.log("post success");
-      })
-      .catch((err) => {
-        console.error(err);
-      });
+    axios.post(apiUrl, body).catch((err) => {
+      console.error(err);
+    });
     history.push("/");
   };
 

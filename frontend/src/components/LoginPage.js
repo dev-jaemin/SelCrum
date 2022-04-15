@@ -1,6 +1,4 @@
 import "./LoginPage.css";
-
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Button, NavLink } from "react-bootstrap";
 
 function LoginPage(props) {
@@ -9,20 +7,12 @@ function LoginPage(props) {
       <Form>
         <Form.Group className="mb-3" controlId="formBasicEmail">
           <Form.Label>ID</Form.Label>
-          <Form.Control
-            type="text"
-            placeholder="아이디"
-            onChange={props.idHandler}
-          />
+          <Form.Control type="text" placeholder="아이디" onChange={props.idHandler} />
         </Form.Group>
 
         <Form.Group className="mb-3" controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="비밀번호"
-            onChange={props.passwordHandler}
-          />
+          <Form.Control type="password" placeholder="비밀번호" onChange={props.passwordHandler} />
         </Form.Group>
         <Button variant="primary" type="submit" onClick={props.submitHandler}>
           시작하기

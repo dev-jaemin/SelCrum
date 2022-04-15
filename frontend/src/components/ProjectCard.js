@@ -1,9 +1,7 @@
-import "bootstrap/dist/css/bootstrap.min.css";
-import { Card, CardColumns } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import "./ProjectCard.css";
 
 function ProjectCard(props) {
-  let url = "/kanban/" + props.id;
   return (
     <Card>
       <Card.Body>

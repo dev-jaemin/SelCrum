@@ -1,15 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import { Route, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { matchTaskWithSprint, setInitTaskForAdd } from "../modules/tasks";
-import {
-  matchTask_Sprint,
-  removeTask,
-  setInitArr,
-} from "../modules/sprintTaskArr";
-
-import "bootstrap/dist/css/bootstrap.min.css";
+import { matchTask_Sprint, removeTask, setInitArr } from "../modules/sprintTaskArr";
 import { ListGroup } from "react-bootstrap";
 
 import SprintAddPage from "../components/SprintAddPage";
@@ -18,16 +11,12 @@ import TaskList from "../components/TaskList";
 //아무리해도 서버에서 쿠키로 Auth검증하는 것이 되지않아 임시로 이렇게 처리
 import { Cookies } from "react-cookie";
 const cookies = new Cookies();
-axios.defaults.headers.common["Authorization"] =
-  `Bearer ` + cookies.get("token");
-
-//https://velog.io/@dhlee91/this.props.history.push%EB%A1%9C-props-%EB%84%98%EA%B2%A8%EC%A3%BC%EA%B8%B0
+axios.defaults.headers.common["Authorization"] = `Bearer ` + cookies.get("token");
 
 function SprintAddPageContainer(props) {
   const apiUrl = process.env.REACT_APP_API_URL;
 
   const [name, setName] = useState("");
-  const [selectedTasks, setSelectedTasks] = useState("");
   const [deadline, setDeadline] = useState("");
   const [btnState, setBtnState] = useState(false);
 
@@ -70,19 +59,12 @@ function SprintAddPageContainer(props) {
     e.preventDefault();
 
     //sprint=0 -> 아직 스프린트에 적용되지 않았다.
-    //dispatch(matchTaskWithSprint(e.target.id, 0));
-    //setSelectedTasks(selectedTasks.filter((item) => item !== e.target.id));
     dispatch(removeTask(curId, parseInt(e.target.id)));
   };
 
   const taskHandler = (e) => {
     e.preventDefault();
-
-    //dispatch(matchTaskWithSprint(e.target.id, curId));
     dispatch(matchTask_Sprint(curId, [parseInt(e.target.id)]));
-
-    //setSelectedTasks([...selectedTasks, e.target.id]);
-
     setBtnState(!btnState);
     taskListRef.current.style = "display:none";
   };
@@ -95,10 +77,8 @@ function SprintAddPageContainer(props) {
     // state에 저장한 값을 가져옵니다.
     let body = {
       name: name,
-      //tasks: selectedTasks,
       tasks: sprintTaskArr[curId],
       project_id: props.match.params.projectId,
-      //end_date: deadline,
     };
 
     console.log(body);
@@ -123,33 +103,11 @@ function SprintAddPageContainer(props) {
 
     return null;
   };
-  /*
-  const uniqueTaskId = [
-    ...new Set(tasks.data.map((item) => (item = item.task_id))),
-  ];
-  
-
-  let tasksNotInSprint = uniqueTaskId.map((item) => {
-    if (item.sprint_id !== curId) {
-      return (
-        <ListGroup.Item key={item} id={item} onClick={taskHandler}>
-          {taskById(item)}
-        </ListGroup.Item>
-      );
-    }
-  });*/
 
   let tasksNotInSprint = tasks.data.map((element) => {
-    if (
-      sprintTaskArr[curId] &&
-      !sprintTaskArr[curId].includes(element.task_id)
-    ) {
+    if (sprintTaskArr[curId] && !sprintTaskArr[curId].includes(element.task_id)) {
       return (
-        <ListGroup.Item
-          key={element.task_id}
-          id={element.task_id}
-          onClick={taskHandler}
-        >
+        <ListGroup.Item key={element.task_id} id={element.task_id} onClick={taskHandler}>
           {element.task}
         </ListGroup.Item>
       );
@@ -182,13 +140,7 @@ function SprintAddPageContainer(props) {
         deadlineHandler={deadlineHandler}
         removeTaskHandler={removeTaskHandler}
       />
-      <TaskList
-        tasks={tasks}
-        taskHandler={taskHandler}
-        taskListRef={taskListRef}
-        isInfoPage={false}
-        taskLi={tasksNotInSprint}
-      />
+      <TaskList tasks={tasks} taskHandler={taskHandler} taskListRef={taskListRef} isInfoPage={false} taskLi={tasksNotInSprint} />
     </div>
   );
 }

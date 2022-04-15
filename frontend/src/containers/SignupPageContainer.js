@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
-
-import { Route } from "react-router-dom";
 import SignupPage from "../components/SignupPage";
 import axios from "axios";
-import { Cookies } from "react-cookie";
-
-const cookies = new Cookies();
 
 function SignupPageContainer(props) {
   const loginUrl = process.env.REACT_APP_API_URL + "/login";
@@ -55,22 +50,13 @@ function SignupPageContainer(props) {
 
     console.log(body);
 
-    axios
-      .post(process.env.REACT_APP_API_URL + "/login/sign_up", body)
-      .then((response) => {
-        window.alert("회원가입되셨습니다.");
-        props.history.push("/login");
-      });
+    axios.post(process.env.REACT_APP_API_URL + "/login/sign_up", body).then(() => {
+      window.alert("회원가입되셨습니다.");
+      props.history.push("/login");
+    });
   };
 
-  return (
-    <SignupPage
-      idHandler={idHandler}
-      passwordHandler={passwordHandler}
-      checkPasswordHandler={checkPasswordHandler}
-      submitHandler={submitHandler}
-    />
-  );
+  return <SignupPage idHandler={idHandler} passwordHandler={passwordHandler} checkPasswordHandler={checkPasswordHandler} submitHandler={submitHandler} />;
 }
 
 export default SignupPageContainer;

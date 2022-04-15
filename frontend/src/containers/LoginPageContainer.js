@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 
-import { Route } from "react-router-dom";
 import LoginPage from "../components/LoginPage";
 import axios from "axios";
 import { Cookies } from "react-cookie";
@@ -9,10 +8,11 @@ const cookies = new Cookies();
 
 function LoginPageContainer(props) {
   const loginUrl = process.env.REACT_APP_API_URL + "/login";
-  console.log(loginUrl);
 
   useEffect(() => {
-    //일단 로그인 페이지로 접속시키고, 이미 인증되어 있는거면 바로 메인화면으로 돌리기
+    //사용자가 로그인 페이지 접속 시도시
+    //일단 로그인 페이지로 접속시키고,
+    //이미 인증되어 있는거면 바로 메인화면으로 전환시킴
     if (window.localStorage.getItem("userId")) {
       axios.get(loginUrl).then((res) => {
         if (res.data === "success") {
@@ -70,14 +70,7 @@ function LoginPageContainer(props) {
     props.history.push("/login/sign_up");
   };
 
-  return (
-    <LoginPage
-      idHandler={idHandler}
-      passwordHandler={passwordHandler}
-      submitHandler={submitHandler}
-      signupPageHandler={signupPageHandler}
-    />
-  );
+  return <LoginPage idHandler={idHandler} passwordHandler={passwordHandler} submitHandler={submitHandler} signupPageHandler={signupPageHandler} />;
 }
 
 export default LoginPageContainer;

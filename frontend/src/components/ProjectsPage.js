@@ -1,5 +1,4 @@
 import { useHistory } from "react-router";
-
 import "./ProjectsPage.css";
 
 function ProjectsPage(props) {
@@ -8,11 +7,7 @@ function ProjectsPage(props) {
 
   return (
     <div className="ProjectsPage">
-      {props.projectElements ? (
-        props.projectElements
-      ) : (
-        <div>완료한 프로젝트가 없습니다.</div>
-      )}
+      {props.projectElements ? props.projectElements : <div>완료한 프로젝트가 없습니다.</div>}
       {!props.isDone && (
         <button
           className="addProjectBtn"

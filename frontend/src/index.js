@@ -1,7 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import IndexPage from "./containers/IndexPage";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
@@ -14,22 +12,15 @@ import rootReducer from "./modules";
 
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
-
-import axios from "axios";
-
-//axios.defaults.withCredentials = true;
+import App from "./App";
 
 // 배포 레벨에서는 리덕스 발동시 찍히는 logger를 사용하지 않습니다.
-const enhancer =
-  process.env.NODE_ENV === "production"
-    ? compose(applyMiddleware())
-    : composeWithDevTools(applyMiddleware(logger));
+const enhancer = process.env.NODE_ENV === "production" ? compose(applyMiddleware()) : composeWithDevTools(applyMiddleware(logger));
 
 //chrome extension Redux devTools 적용 코드
-const devTools =
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
 
-// 위에서 만든 reducer를 스토어 만들때 넣어줍니다
+//redux store
 const store = createStore(rootReducer, devTools);
 
 //새로고침하면 리덕스에 담긴 정보 날라가는거 방지하기 위해 로컬스토리지에 저장.
@@ -40,7 +31,7 @@ ReactDOM.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <BrowserRouter>
-          <IndexPage />
+          <App />
         </BrowserRouter>
       </PersistGate>
     </Provider>

@@ -1,8 +1,4 @@
 import "./MorePage.css";
-
-import React, { useState } from "react";
-import { Route } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { ListGroup } from "react-bootstrap";
 import { useHistory } from "react-router";
 
@@ -19,9 +15,7 @@ function MorePage(props) {
         >
           회원정보 수정
         </ListGroup.Item>
-        <ListGroup.Item onClick={props.secessionHandler}>
-          회원 탈퇴
-        </ListGroup.Item>
+        <ListGroup.Item onClick={props.secessionHandler}>회원 탈퇴</ListGroup.Item>
       </ListGroup>
     </div>
   );

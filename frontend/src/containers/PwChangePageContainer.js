@@ -1,12 +1,6 @@
-import React, { useEffect, useState } from "react";
-
-import { Route } from "react-router-dom";
+import { useEffect, useState } from "react";
 import PwChangePage from "../components/PwChangePage";
 import axios from "axios";
-import { Cookies } from "react-cookie";
-import { current } from "immer";
-
-const cookies = new Cookies();
 
 function PwChangePageContainer(props) {
   const loginUrl = process.env.REACT_APP_API_URL + "/login";
@@ -57,7 +51,7 @@ function PwChangePageContainer(props) {
 
     axios
       .put(loginUrl, body)
-      .then((response) => {
+      .then(() => {
         window.alert("비밀번호가 변경되었습니다.");
         props.history.push("/");
       })

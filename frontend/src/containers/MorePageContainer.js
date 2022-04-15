@@ -1,14 +1,9 @@
-import React, { useState } from "react";
-import { Route } from "react-router-dom";
 import axios from "axios";
-
 import MorePage from "../components/MorePage";
-
 import { Cookies } from "react-cookie";
 
 const cookies = new Cookies();
-axios.defaults.headers.common["Authorization"] =
-  `Bearer ` + cookies.get("token");
+axios.defaults.headers.common["Authorization"] = `Bearer ` + cookies.get("token");
 
 function MorePageContainer(props) {
   const secessionUrl = process.env.REACT_APP_API_URL + "/login";
@@ -21,9 +16,7 @@ function MorePageContainer(props) {
   };
 
   const secessionHandler = () => {
-    const pw = window.prompt(
-      "정말로 탈퇴하시겠습니까?\n비밀번호를 입력하시면 탈퇴처리됩니다."
-    );
+    const pw = window.prompt("정말로 탈퇴하시겠습니까?\n비밀번호를 입력하시면 탈퇴처리됩니다.");
     if (pw) {
       const body = {
         userId: window.localStorage.getItem("userId"),
@@ -43,12 +36,7 @@ function MorePageContainer(props) {
     }
   };
 
-  return (
-    <MorePage
-      logoutHandler={logoutHandler}
-      secessionHandler={secessionHandler}
-    />
-  );
+  return <MorePage logoutHandler={logoutHandler} secessionHandler={secessionHandler} />;
 }
 
 export default MorePageContainer;

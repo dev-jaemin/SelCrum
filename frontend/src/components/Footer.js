@@ -1,4 +1,3 @@
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Button, ButtonGroup } from "react-bootstrap";
 import "./Footer.css";
 

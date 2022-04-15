@@ -1,4 +1,3 @@
-import { createAction, handleActions } from "redux-actions";
 import produce from "immer";
 
 // reducer가 많아지면 action상수가 중복될 수 있으니
@@ -8,8 +7,6 @@ export const MATCH = "tasks/MATCH";
 export const SWITCH = "tasks/SWITCH";
 export const API_INIT = "tasks/API_INIT";
 export const ADD_INIT = "tasks/ADD_INIT";
-
-let nextId = 1;
 
 export const insertTask = (projectId, taskId, text) => ({
   type: INSERT,
@@ -92,17 +89,13 @@ export default function tasks(state = initialState, action) {
       });
     case MATCH:
       return produce(state, (draft) => {
-        const selectedTask = draft.data.find(
-          (t) => t.task_id === parseInt(action.task_id)
-        );
+        const selectedTask = draft.data.find((t) => t.task_id === parseInt(action.task_id));
 
         selectedTask.sprint_id = parseInt(action.sprintId);
       });
     case SWITCH:
       return produce(state, (draft) => {
-        const selectedTask = draft.data.find(
-          (t) => t.task_id === parseInt(action.task_id)
-        );
+        const selectedTask = draft.data.find((t) => t.task_id === parseInt(action.task_id));
         if (selectedTask.todo === 1) selectedTask.todo = 0;
         else selectedTask.todo = 1;
       });
