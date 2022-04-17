@@ -1,18 +1,13 @@
 import { getConnection } from "./db/database.js";
-import { createHash } from "crypto";
 import bcrypt from "bcrypt";
 import passport from "passport";
 import jwt from "jsonwebtoken";
-import cookieParser from "cookie-parser";
 import dotenv from "dotenv";
 dotenv.config();
 
 const UserService = {
   getUserById: async (userId) => {
-    const result = await getConnection(
-      "SELECT * FROM users WHERE user_id = ?",
-      userId
-    );
+    const result = await getConnection("SELECT * FROM users WHERE user_id = ?", userId);
 
     return result[0][0];
   },
@@ -24,16 +19,6 @@ const UserService = {
   },
 
   addUser: async (user) => {
-    /*
-    let salt = Math.round(new Date().valueOf() * Math.random()) + "";
-    let hashPassword = createHash("sha512")
-      .update(user.pw + salt)
-      .digest("hex");
-    user.pw = hashPassword;
-    user.salt = salt;
-
-    console.log(user);*/
-
     const encryptedPassword = bcrypt.hashSync(user.pw, 12);
     user.pw = encryptedPassword;
 
@@ -55,10 +40,7 @@ const UserService = {
 
         //cors
         res.header("Access-Control-Allow-Origin", "*");
-        res.header(
-          "Access-Control-Allow-Headers",
-          "Origin, X-Requested-With, Content-Type, Accept"
-        );
+        res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
         res.header("Access-Control-Allow-Credentials", true);
         res.cookie("token", token, { httpOnly: true });
 
@@ -72,10 +54,7 @@ const UserService = {
       const encryptedPassword = bcrypt.hashSync(user.newPw, 12);
       user.newPw = encryptedPassword;
 
-      return await getConnection("UPDATE users SET pw=? WHERE user_id=?", [
-        user.newPw,
-        user.userId,
-      ]);
+      return await getConnection("UPDATE users SET pw=? WHERE user_id=?", [user.newPw, user.userId]);
     } else {
       return -1;
     }
@@ -83,10 +62,7 @@ const UserService = {
 
   deleteUser: async (user) => {
     if (UserService.checkPassword(user.userId, user.pw)) {
-      await getConnection(
-        "DELETE FROM user_project WHERE user_id=?",
-        user.userId
-      );
+      await getConnection("DELETE FROM user_project WHERE user_id=?", user.userId);
       await getConnection("DELETE FROM users WHERE user_id=?", user.userId);
 
       return 1;

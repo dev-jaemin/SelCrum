@@ -29,8 +29,6 @@ async function localVerify(user_id, password, done) {
     const checkPassword = await bcrypt.compare(password, user.pw);
     if (!checkPassword) return done(null, false);
 
-    console.log(user);
-
     return done(null, user);
   } catch (e) {
     return done(e);

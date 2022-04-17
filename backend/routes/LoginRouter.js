@@ -23,8 +23,6 @@ router.post("/sign_up", async function (req, res, next) {
     logger.error(err);
     next(err);
   }
-
-  //res.redirect("/user/sign_up");
 });
 
 //login상태인지 토큰 검증(클라이언트에서 요청할 때 헤더에 Authorization: "Bearer " + {token값} 보내면 인증할 수 있음)

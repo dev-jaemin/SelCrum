@@ -1,5 +1,6 @@
 import express from "express";
 import multer from "multer";
+import logger from "../logger.js";
 import ProjectService from "../services/ProjectService.js";
 
 const router = express.Router();
@@ -19,7 +20,7 @@ router.get("/project", async function (req, res, next) {
   try {
     res.send(await ProjectService.getProjects(req.query));
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 });
@@ -37,7 +38,7 @@ router.post("/project", async function (req, res, next) {
     await ProjectService.addProject(newProject, req.body.user_id);
     res.status(200);
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 });
@@ -47,7 +48,7 @@ router.get("/project/:projectId", async function (req, res, next) {
   try {
     res.send(await ProjectService.getProjectById(req.params.projectId));
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 });
@@ -57,7 +58,7 @@ router.put("/project/:projectId/complete", async function (req, res, next) {
   try {
     res.send(await ProjectService.updateCompleteProject(req.params.projectId));
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 });
@@ -67,7 +68,7 @@ router.get("/sprint/:sprintId", async function (req, res, next) {
   try {
     res.send(await ProjectService.getSprintById(req.params.sprintId));
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 });
@@ -77,7 +78,7 @@ router.get("/project/:projectId/sprint", async function (req, res, next) {
   try {
     res.send(await ProjectService.getSprintsByProjectId(req.params.projectId));
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 });
@@ -94,7 +95,7 @@ router.post("/sprint", async function (req, res, next) {
     await ProjectService.addSprint(newSprint, req.body.tasks);
     res.status(200);
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 });
@@ -105,7 +106,6 @@ router.put("/sprint", async function (req, res, next) {
   let curSprint = {
     name: req.body.name,
     project_id: req.body.project_id,
-    //end_date: req.body.end_date,
   };
 
   try {
@@ -116,7 +116,7 @@ router.put("/sprint", async function (req, res, next) {
     );
     res.status(200);
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 });
@@ -126,7 +126,7 @@ router.get("/project/:projectId/task", async function (req, res, next) {
   try {
     res.send(await ProjectService.getTasksByProjectId(req.params.projectId));
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 });
@@ -136,7 +136,7 @@ router.get("/project/:projectId/task/sprint", async function (req, res, next) {
   try {
     res.send(await ProjectService.getTasksWithSprint(req.params.projectId));
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 });
@@ -148,7 +148,7 @@ router.get("/project/:projectId/task_sprint", async function (req, res, next) {
       await ProjectService.getTaskSprintBySprintId(req.params.projectId)
     );
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 });
@@ -158,7 +158,7 @@ router.get("/sprint/:sprintId/task", async function (req, res, next) {
   try {
     res.send(await ProjectService.getTasksBySprintId(req.params.sprintId));
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 });
@@ -173,7 +173,7 @@ router.post("/task", async function (req, res, next) {
   try {
     res.send(await ProjectService.addTask(newTask));
   } catch (err) {
-    console.error(err);
+    logger.error(err);
     next(err);
   }
 });

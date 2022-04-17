@@ -1,15 +1,8 @@
 import mysql from "mysql2/promise";
+import logger from "../../logger.js";
 import config from "./dbconfig.js";
 
 let pool = mysql.createPool(config);
-
-/*async function getConnectionForAdd(callback) {
-    await pool.getConnection(async function (err, conn) {
-        if (!err) {
-            callback(conn);
-        }
-    });
-}*/
 
 async function getConnection(query, values) {
   let result = [];
@@ -19,10 +12,10 @@ async function getConnection(query, values) {
       result = await connection.query(query, values);
       connection.release();
     } catch (e) {
-      console.log(e);
+      logger.error(e);
     }
   } catch (e) {
-    console.log(e);
+    logger.error(e);
   }
 
   return result;

@@ -1,29 +1,23 @@
 import express from "express";
 
-import MainRouter from "./routes/main.js";
 import LoginRouter from "./routes/LoginRouter.js";
 import ApiRouter from "./routes/ApiRouter.js";
-import session from "express-session";
 import logger from "morgan";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import ejs from "ejs";
 import cors from "cors";
 import helmet from "helmet";
-import axios from "axios";
 import dotenv from "dotenv";
 dotenv.config();
 
 //for login
 import passport from "passport";
 import passportConfig from "./passport/index.js";
-import jwt from "express-jwt";
 import cookieParser from "cookie-parser";
 
 const app = express();
 const port = 4000;
-
-//axios.defaults.withCredentials = true;
 
 //es6 type:module은 __dirname이 없음.
 const __filename = fileURLToPath(import.meta.url);
@@ -56,15 +50,6 @@ if (process.env.NODE_ENV === "production") {
 } else {
   app.use(logger("dev"));
 }
-
-//3000번 포트에서도 api서버와 통신할 수 있게끔 설정. 이거 없으면 CORS 위반이라 해서 같은 포트 아니면 통신안됌.
-/*
-const corsOptions = {
-  origin: "http://localhost:3000",
-  credentials: true,
-};
-*/
-
 app.use(cors());
 
 //옛날엔 body-parser 모듈 썼는데 이젠 express 내장 객체되어서 req.body 내용 파싱할 때 이렇게 설정하면 됌.
@@ -76,20 +61,9 @@ app.use(cookieParser());
 app.use(passport.initialize());
 passportConfig();
 
-/*
-app.use(
-  jwt({
-    secret: "global.config.secret",
-    algorithms: ["HS256"],
-    getToken: (req) => req.cookies.token,
-  })
-);*/
-
-//app.use("/", MainRouter);
 app.use("/login", LoginRouter);
 //미들웨어로 auth를 넣어서 로그인 검증
 app.use("/api", passport.authenticate("jwt", { session: false }), ApiRouter);
-//app.use("/api", ApiRouter);
 
 //404 not found 처리
 app.get((req, res) => {
@@ -101,11 +75,8 @@ app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = process.env.NODE_ENV !== "production" ? err : {};
   res.status(err.status || 500);
-  //res.render("error");
 });
 
 const server = app.listen(port, function () {
-  console.log(
-    `Express server has started on port ${port}(http://localhost:${port})`
-  );
+  console.log(`Express server has started on port ${port}(http://localhost:${port})`);
 });

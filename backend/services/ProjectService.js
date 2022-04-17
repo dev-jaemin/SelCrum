@@ -1,5 +1,4 @@
 import { getConnection } from "./db/database.js";
-import assert from "assert";
 
 const ProjectService = {};
 
